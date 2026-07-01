@@ -5,6 +5,9 @@ import CustomCursor from '../components/CustomCursor';
 import SEO from '../components/SEO';
 import { projects } from '../data/projects';
 import { useEffect, useRef } from 'react';
+import PhoneMockup from '../components/PhoneMockup';
+import PushNotification from '../components/PushNotification';
+import AnimatedCounter from '../components/AnimatedCounter';
 
 const tagStyle = {
   display: 'inline-flex',
@@ -99,18 +102,27 @@ export default function ProjectDetails() {
               </div>
               {/* Imagens Mobile lado a lado */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--space-4)' }}>
-                <img 
-                  src={project.gallery[1]} 
-                  alt={`${project.name} Mobile 1`} 
-                  loading="lazy"
-                  style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
-                />
-                <img 
-                  src={project.gallery[2]} 
-                  alt={`${project.name} Mobile 2`} 
-                  loading="lazy"
-                  style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
-                />
+                {project.slug === 'validade-zero' ? (
+                  <>
+                    <PhoneMockup imageSrc={project.gallery[1]} alt={`${project.name} Mobile 1`} />
+                    <PhoneMockup imageSrc={project.gallery[2]} alt={`${project.name} Mobile 2`} />
+                  </>
+                ) : (
+                  <>
+                    <img 
+                      src={project.gallery[1]} 
+                      alt={`${project.name} Mobile 1`} 
+                      loading="lazy"
+                      style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
+                    />
+                    <img 
+                      src={project.gallery[2]} 
+                      alt={`${project.name} Mobile 2`} 
+                      loading="lazy"
+                      style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
+                    />
+                  </>
+                )}
               </div>
             </div>
           ) : (
@@ -135,6 +147,26 @@ export default function ProjectDetails() {
               <p className="project-section-text">{project.solution}</p>
             </div>
           </div>
+          
+          {project.slug === 'validade-zero' && (
+            <div style={{ marginBottom: 'var(--space-8)' }}>
+              <AnimatedCounter 
+                endValue={0} 
+                duration={3} 
+                title="Produtos Vencidos na Gôndola" 
+                description="O prejuízo e a dor de cabeça pararam de existir. Operação de risco zero."
+              />
+            </div>
+          )}
+          
+          {project.slug === 'validade-zero' && (
+            <PushNotification 
+              title="Alerta de Vencimento" 
+              message="Lote de Leite Integral vence em 3 dias. Verifique a Gôndola 4." 
+              delay={3500} 
+              icon="🚨"
+            />
+          )}
         </motion.div>
       </div>
 
