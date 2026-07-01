@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
+import CustomCursor from '../components/CustomCursor';
 
 const privacidadeData = {
   title: 'POLÍTICA DE PRIVACIDADE',
@@ -38,6 +39,7 @@ export default function Privacy() {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.6 }}
     >
+      <CustomCursor />
       <div className="container section" style={{ minHeight: '80vh', paddingTop: 'var(--space-8)' }}>
         <Link to="/" className="back-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--fg-muted)', marginBottom: 'var(--space-4)', textDecoration: 'none', transition: 'color 0.2s' }}>
           <ArrowLeft size={20} /> VOLTAR PARA HOME

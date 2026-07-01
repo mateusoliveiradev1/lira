@@ -16,6 +16,9 @@ function AnimatedRoutes() {
   const location = useLocation();
   
   useEffect(() => {
+    // Scroll to top on route change
+    window.scrollTo(0, 0);
+
     // Inicialização global do Lenis Smooth Scroll
     const lenis = new Lenis({
       duration: 1.2,
