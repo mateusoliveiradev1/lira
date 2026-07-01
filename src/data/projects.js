@@ -99,10 +99,10 @@ export const projects = [
     img: '/images/resenha.webp',
     stack: ['Next.js', 'Neon', 'Tailwind CSS'],
     challenge: 'Clubes de futebol amador e semi-profissional não têm presença digital decente. Tudo fica perdido em grupos de WhatsApp. Faltava uma plataforma onde o clube tivesse sua identidade visual, seu calendário e sua memória registrada de forma organizada.',
-    solution: 'Construí o Resenha Web — um portal esportivo de ponta. Muito além de um site institucional, a plataforma conta com tabela automática de classificação, sistema de placar de jogos em tempo real e registro de memória do clube. Interface escura inspirada em portais esportivos internacionais, entregando para clubes amadores a tecnologia que antes era restrita à elite do futebol.',
+    solution: 'Construí o Resenha Web — um portal esportivo de ponta. Muito além de um site institucional, a plataforma conta com tabela automática de classificação, sistema de placar de jogos em tempo real, área de notícias (blog) e galeria de fotos para registro de memória do clube. Interface escura inspirada em portais esportivos internacionais, entregando para clubes amadores a tecnologia que antes era restrita à elite do futebol.',
     metrics: [
       { label: 'Tipo', value: 'Produto Próprio' },
-      { label: 'Módulos', value: 'Tabelas + Placares' },
+      { label: 'Módulos', value: 'Tabelas + Notícias + Galeria' },
       { label: 'Diferencial', value: 'Automação Esportiva' }
     ]
   }
