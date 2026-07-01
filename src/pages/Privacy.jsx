@@ -87,7 +87,7 @@ export default function Privacy() {
             <div className="legal-contact" style={{ marginTop: 'var(--space-7)', padding: 'var(--space-5)', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-base)' }}>
               <h3 style={{ fontSize: '1.5rem', marginBottom: 'var(--space-2)' }}>Dúvidas?</h3>
               <p style={{ color: 'var(--fg-muted)', marginBottom: 'var(--space-4)' }}>Se você tem qualquer questionamento sobre nossos documentos legais, fale com nosso time diretamente.</p>
-              <a href="mailto:legal@liraconversao.com.br" className="btn btn-primary" style={{ padding: '1rem 2rem' }}>FALAR COM SUPORTE</a>
+              <a href="mailto:warface01031999@gmail.com" className="btn btn-primary" style={{ padding: '1rem 2rem' }}>FALAR COM SUPORTE</a>
             </div>
           </main>
         </div>

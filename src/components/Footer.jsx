@@ -15,7 +15,7 @@ export default function Footer() {
               {/* <a href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn da Lira Studio">LinkedIn</a> */}
               {/* <a href="#" target="_blank" rel="noreferrer" aria-label="GitHub da Lira Studio">GitHub</a> */}
               <a href="https://wa.me/5517997437433" target="_blank" rel="noreferrer" aria-label="WhatsApp da Lira Studio">WhatsApp</a>
-              <a href="mailto:contato@liraconversao.com.br" aria-label="Enviar email para Lira Studio">E-mail</a>
+              <a href="mailto:warface01031999@gmail.com" aria-label="Enviar email para Lira Studio">E-mail</a>
             </div>
           </div>
           
