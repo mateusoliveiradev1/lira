@@ -12,6 +12,8 @@ import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import Preloader from './components/Preloader';
 import PageTransition from './components/PageTransition';
+import ProgressBar from './components/ProgressBar';
+import NoiseFilter from './components/NoiseFilter';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -68,14 +70,14 @@ function App() {
   });
 
   return (
-    <>
+    <HelmetProvider>
+      <NoiseFilter />
+      <ProgressBar />
       {!preloaderDone && <Preloader onComplete={() => setPreloaderDone(true)} />}
-      <HelmetProvider>
-        <BrowserRouter>
-          <AnimatedRoutes />
-        </BrowserRouter>
-      </HelmetProvider>
-    </>
+      <BrowserRouter>
+        <AnimatedRoutes />
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

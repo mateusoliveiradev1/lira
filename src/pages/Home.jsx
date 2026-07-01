@@ -9,6 +9,8 @@ import TextReveal from '../components/TextReveal';
 import SEO from '../components/SEO';
 import ExitIntentModal from '../components/ExitIntentModal';
 import Marquee from '../components/Marquee';
+import LiveClock from '../components/LiveClock';
+import { playHover, playClick } from '../utils/uiSound';
 
 const testimonials = [
   { quote: "A Lira Studio não entregou apenas um site bonito, eles construíram uma verdadeira impressora de dinheiro. Nosso custo por lead caiu pela metade na primeira semana.", author: "João P.", role: "CEO, TechFlow" },
@@ -41,7 +43,7 @@ function FAQItem({ faq, index }) {
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
     >
-      <div className="faq-question" onClick={() => setIsOpen(!isOpen)} role="button" tabIndex={0} aria-expanded={isOpen} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsOpen(!isOpen); } }}>
+      <div className="faq-question" onMouseEnter={playHover} onClick={() => { setIsOpen(!isOpen); playClick(); }} role="button" tabIndex={0} aria-expanded={isOpen} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsOpen(!isOpen); playClick(); } }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
           <span className="faq-index">{num} //</span>
           <h3>{faq.q}</h3>
@@ -129,6 +131,7 @@ export default function Home() {
       </SEO>
       <CustomCursor />
       <ExitIntentModal />
+      <LiveClock />
 
       {isDesktop && (
         <motion.div 
@@ -165,7 +168,7 @@ export default function Home() {
             </motion.p>
             <motion.div variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}>
               <MagneticButton>
-                <a href="#contato" className="btn btn-primary" aria-label="Agendar consultoria - Estancar o sangramento">
+                <a href="#contato" className="btn btn-primary" aria-label="Agendar consultoria - Estancar o sangramento" onMouseEnter={playHover} onClick={playClick}>
                   ESTANCAR O SANGRAMENTO <ArrowUpRight size={24} style={{ marginLeft: '12px' }} aria-hidden="true" />
                 </a>
               </MagneticButton>
@@ -228,8 +231,9 @@ export default function Home() {
                 to={`/projeto/${project.slug}`}
                 className="project-row" 
                 key={idx}
-                onMouseEnter={() => setHoveredProject(project)}
+                onMouseEnter={() => { setHoveredProject(project); playHover(); }}
                 onMouseLeave={() => setHoveredProject(null)}
+                onClick={playClick}
               >
                 <h3>{project.name}</h3>
                 <div className="project-category">{project.category} <ArrowUpRight size={20} style={{ verticalAlign: 'middle', marginLeft: '8px' }} aria-hidden="true" /></div>
