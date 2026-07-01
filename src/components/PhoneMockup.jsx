@@ -12,7 +12,7 @@ export default function PhoneMockup({ imageSrc, alt }) {
       style={{
         position: 'relative',
         maxWidth: '320px',
-        margin: '0 auto',
+        width: '100%',
         padding: '12px',
         backgroundColor: '#1a1a1a',
         borderRadius: '40px',
