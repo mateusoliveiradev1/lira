@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useInView, useSpring } from 'framer-motion';
 
-export default function AnimatedCounter({ endValue, duration = 2, prefix = "", suffix = "", title, description }) {
-  const [value, setValue] = useState(0);
+export default function AnimatedCounter({ startValue = 0, endValue, duration = 2, prefix = "", suffix = "", title, description }) {
+  const [value, setValue] = useState(startValue);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   
-  const springValue = useSpring(0, {
+  const springValue = useSpring(startValue, {
     bounce: 0,
     duration: duration * 1000
   });

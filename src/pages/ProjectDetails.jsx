@@ -101,7 +101,7 @@ export default function ProjectDetails() {
                 />
               </div>
               {/* Imagens Mobile lado a lado */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--space-4)' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '3rem', padding: '1rem 0' }}>
                 {project.slug === 'validade-zero' ? (
                   <>
                     <PhoneMockup imageSrc={project.gallery[1]} alt={`${project.name} Mobile 1`} />
@@ -113,13 +113,13 @@ export default function ProjectDetails() {
                       src={project.gallery[1]} 
                       alt={`${project.name} Mobile 1`} 
                       loading="lazy"
-                      style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
+                      style={{ maxWidth: '320px', width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
                     />
                     <img 
                       src={project.gallery[2]} 
                       alt={`${project.name} Mobile 2`} 
                       loading="lazy"
-                      style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
+                      style={{ maxWidth: '320px', width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
                     />
                   </>
                 )}
@@ -151,6 +151,7 @@ export default function ProjectDetails() {
           {project.slug === 'validade-zero' && (
             <div style={{ marginBottom: 'var(--space-8)' }}>
               <AnimatedCounter 
+                startValue={100}
                 endValue={0} 
                 duration={3} 
                 title="Produtos Vencidos na Gôndola" 
