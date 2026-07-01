@@ -4,6 +4,23 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
 
+if (typeof window !== 'undefined') {
+  console.log(
+    `%c
+   __    __                  
+  / /   / /  ___ __________ _
+ / /__ / /__/ _ \`/ __/ __/ _ \`
+/____//____/\_,_/_/  \__/\_,_/
+                              
+%cInspecionando nosso código? Você é curioso.
+Que tal focar em escalar as suas vendas? Fale com a Lira Studio.
+👉 https://liraconversao.com.br
+`,
+    "font-family: monospace; color: #D7FF00; font-size: 14px; font-weight: bold;",
+    "font-family: sans-serif; color: #ffffff; font-size: 12px; padding-top: 10px;"
+  );
+}
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);

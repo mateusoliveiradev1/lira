@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+import MagneticButton from './MagneticButton';
+import FooterCanvas from './FooterCanvas';
 
 export default function Footer() {
   return (
-    <footer className="footer section">
-      <div className="container">
+    <footer className="footer section" style={{ position: 'relative', overflow: 'hidden' }}>
+      <FooterCanvas />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="footer-grid">
           <div className="footer-info">
             <Link to="/" className="logo">LIRA<span>.</span></Link>

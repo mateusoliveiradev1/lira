@@ -10,6 +10,7 @@ import SEO from '../components/SEO';
 import ExitIntentModal from '../components/ExitIntentModal';
 import Marquee from '../components/Marquee';
 import LiveClock from '../components/LiveClock';
+import TiltCard from '../components/TiltCard';
 import { playHover, playClick } from '../utils/uiSound';
 
 const testimonials = [
@@ -249,7 +250,7 @@ export default function Home() {
         </div>
         <div className="testimonials-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--space-5)' }}>
           {testimonials.map((t, i) => (
-            <motion.div 
+            <TiltCard 
               key={i}
               className="testimonial-card"
               initial={{ opacity: 0, y: 20 }}
@@ -263,7 +264,7 @@ export default function Home() {
                 <p style={{ color: 'var(--accent-primary)', fontWeight: 'bold', fontFamily: 'var(--font-display)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{t.author}</p>
                 <p style={{ color: 'var(--fg-muted)', fontSize: '0.875rem' }}>{t.role}</p>
               </div>
-            </motion.div>
+            </TiltCard>
           ))}
         </div>
       </section>

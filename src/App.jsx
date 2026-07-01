@@ -13,6 +13,7 @@ import WhatsAppButton from './components/WhatsAppButton';
 import Preloader from './components/Preloader';
 import PageTransition from './components/PageTransition';
 import ProgressBar from './components/ProgressBar';
+import useDynamicAttention from './utils/useDynamicAttention';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -60,6 +61,8 @@ function AnimatedRoutes() {
 }
 
 function App() {
+  useDynamicAttention();
+  
   const [preloaderDone, setPreloaderDone] = useState(() => {
     // Pula o preloader se for o robô do Google/Lighthouse para nota 100
     if (typeof window !== 'undefined') {
