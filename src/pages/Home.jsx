@@ -236,7 +236,24 @@ export default function Home() {
                 onMouseLeave={() => setHoveredProject(null)}
                 onClick={playClick}
               >
-                <h3>{project.name}</h3>
+                <h3>
+                  {project.name}
+                  {project.badge && (
+                    <span style={{ 
+                      backgroundColor: 'var(--accent-primary)', 
+                      color: '#000', 
+                      fontSize: '0.65rem', 
+                      padding: '2px 8px', 
+                      marginLeft: '16px', 
+                      fontWeight: 'bold', 
+                      borderRadius: '4px',
+                      letterSpacing: '1px',
+                      verticalAlign: 'middle'
+                    }}>
+                      {project.badge}
+                    </span>
+                  )}
+                </h3>
                 <div className="project-category">{project.category} <ArrowUpRight size={20} style={{ verticalAlign: 'middle', marginLeft: '8px' }} aria-hidden="true" /></div>
               </Link>
             ))}

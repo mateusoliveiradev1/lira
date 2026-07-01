@@ -65,9 +65,15 @@ export default function ProjectDetails() {
               <span style={{ ...tagStyle, marginBottom: '1rem', display: 'inline-flex' }}>{project.category}</span>
               <h1 className="project-title" style={{ margin: '0.5rem 0 1rem' }}>{project.name}</h1>
             </div>
-            <a href={project.url} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ fontSize: '1.25rem' }}>
-              VER PROJETO AO VIVO <ArrowUpRight size={24} style={{ marginLeft: '12px' }} />
-            </a>
+            {project.url ? (
+              <a href={project.url} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ fontSize: '1.25rem' }}>
+                VER PROJETO AO VIVO <ArrowUpRight size={24} style={{ marginLeft: '12px' }} />
+              </a>
+            ) : (
+              <div className="btn" style={{ fontSize: '1.25rem', opacity: 0.5, cursor: 'not-allowed', background: 'var(--bg-surface)' }}>
+                EM DESENVOLVIMENTO
+              </div>
+            )}
           </div>
 
           {/* Stack Tags */}

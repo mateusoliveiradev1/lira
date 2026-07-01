@@ -1,5 +1,21 @@
 export const projects = [
   { 
+    slug: 'validade-zero',
+    name: 'Validade Zero', 
+    url: null,
+    category: 'App Mobile',
+    badge: 'EM BREVE',
+    img: '/validade-zero.png',
+    stack: ['React Native', 'Node.js', 'API REST', 'Push Notifications'],
+    challenge: 'Supermercados e mercados perdem milhares de reais por mês com produtos vencidos na área de venda. O controle é feito em planilhas ou papel, as verificações são manuais e inconsistentes, e quando o fiscal encontra um produto vencido na gôndola, o prejuízo já está feito — tanto financeiro quanto de reputação.',
+    solution: 'Desenvolvi o Validade Zero — um app mobile com leitura de código de barras para cadastro instantâneo de produtos, alertas inteligentes por proximidade de vencimento e notificações push automáticas para a equipe de reposição. Um painel admin web dá visão geral ao gerente com relatórios de perdas e ações preventivas. Zero produto vencido, zero multa, zero desperdício.',
+    metrics: [
+      { label: 'Tipo', value: 'Produto Próprio' },
+      { label: 'Fase', value: 'Em Desenvolvimento' },
+      { label: 'Plataforma', value: 'Mobile + API + Admin' }
+    ]
+  },
+  { 
     slug: 'frescari',
     name: 'Frescari', 
     url: 'https://frescari.com.br/', 
