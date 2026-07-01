@@ -182,7 +182,8 @@ h1, h2, h3, h4, .h2-reveal {
   padding-top: 5rem;
   padding-bottom: var(--space-6);
   border-bottom: 1px solid var(--border-base);
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: clip;
   position: relative;
 }
 
@@ -571,7 +572,7 @@ html.lenis { height: auto; }
 
 /* ===================== MOBILE OVERRIDES ===================== */
 @media (max-width: 639px) {
-  .hero-title { font-size: 2.5rem !important; }
+  .hero-title { font-size: clamp(2.25rem, 9vw, 3rem) !important; word-break: break-word; }
   .section-header h2, .section-header .h2-reveal, .cta-section h2 { font-size: 2rem !important; }
   .stat-number { font-size: 1.5rem !important; }
   .project-title { font-size: 2.5rem !important; }
@@ -582,7 +583,17 @@ html.lenis { height: auto; }
   .project-stat-number { font-size: 1.25rem !important; color: var(--accent-primary); }
   
   .container { padding: 0 1rem; overflow-x: hidden; }
-  .hero { min-height: 80svh; }
+  .hero { min-height: 85svh; padding-top: 6rem; }
+  .hero-subtitle { font-size: 1rem !important; }
+
+  .btn-primary { font-size: 0.9rem; padding: 0.875rem 1.5rem; }
+
+  .whatsapp-float-btn {
+    bottom: 1rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+  }
 }
 
 /* ===================== TABLET: 640px+ ===================== */
