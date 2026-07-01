@@ -85,15 +85,45 @@ export default function ProjectDetails() {
             ))}
           </div>
 
-          <div ref={imgContainerRef} style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 'var(--space-8)' }}>
-            <motion.img 
-              src={project.img} 
-              alt={`Demonstração visual do case ${project.name}`} 
-              loading="eager"
-              decoding="async"
-              style={{ width: '100%', height: 'auto', display: 'block', y: imgY, scale: 1.15 }} 
-            />
-          </div>
+          {project.gallery ? (
+            <div style={{ marginBottom: 'var(--space-8)' }}>
+              {/* Imagem Web com Parallax */}
+              <div ref={imgContainerRef} style={{ width: '100%', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 'var(--space-4)' }}>
+                <motion.img 
+                  src={project.gallery[0]} 
+                  alt={`${project.name} Web Preview`} 
+                  loading="eager"
+                  decoding="async"
+                  style={{ width: '100%', height: 'auto', display: 'block', y: imgY, scale: 1.15 }} 
+                />
+              </div>
+              {/* Imagens Mobile lado a lado */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--space-4)' }}>
+                <img 
+                  src={project.gallery[1]} 
+                  alt={`${project.name} Mobile 1`} 
+                  loading="lazy"
+                  style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
+                />
+                <img 
+                  src={project.gallery[2]} 
+                  alt={`${project.name} Mobile 2`} 
+                  loading="lazy"
+                  style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
+                />
+              </div>
+            </div>
+          ) : (
+            <div ref={imgContainerRef} style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 'var(--space-8)' }}>
+              <motion.img 
+                src={project.img} 
+                alt={`Demonstração visual do case ${project.name}`} 
+                loading="eager"
+                decoding="async"
+                style={{ width: '100%', height: 'auto', display: 'block', y: imgY, scale: 1.15 }} 
+              />
+            </div>
+          )}
 
           <div className="project-details-grid" style={{ marginBottom: 'var(--space-8)' }}>
             <div className="process-step" style={{ background: 'transparent', border: 'none', padding: 0 }}>
