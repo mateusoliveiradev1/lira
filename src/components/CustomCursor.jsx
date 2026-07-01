@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export default function CustomCursor() {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   
@@ -12,6 +13,12 @@ export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    // Não renderizar cursor em dispositivos touch
+    if ('ontouchstart' in window || window.matchMedia('(max-width: 1024px)').matches) {
+      setIsTouchDevice(true);
+      return;
+    }
+
     const moveCursor = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -33,6 +40,8 @@ export default function CustomCursor() {
       window.removeEventListener('mouseover', handleMouseOver);
     };
   }, [cursorX, cursorY]);
+
+  if (isTouchDevice) return null;
 
   return (
     <motion.div 

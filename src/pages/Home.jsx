@@ -114,6 +114,11 @@ function FAQItem({ faq, index }) {
 
 export default function Home() {
   const [hoveredProject, setHoveredProject] = useState(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    setIsDesktop(!('ontouchstart' in window) && window.innerWidth > 1024);
+  }, []);
   
   const imgX = useMotionValue(-1000);
   const imgY = useMotionValue(-1000);
@@ -122,6 +127,7 @@ export default function Home() {
   const imgYSpring = useSpring(imgY, imgSpringConfig);
 
   const handleMouseMove = (e) => {
+    if (!isDesktop) return;
     imgX.set(e.clientX);
     imgY.set(e.clientY);
   };
@@ -136,22 +142,24 @@ export default function Home() {
   const heroOpacity = useTransform(heroScroll, [0, 0.7], [1, 0]);
 
   return (
-    <div className="app-wrapper" onMouseMove={handleMouseMove}>
+    <div className="app-wrapper" onMouseMove={isDesktop ? handleMouseMove : undefined}>
       <CustomCursor />
 
-      <motion.div 
-        className="floating-image"
-        style={{
-          left: imgXSpring,
-          top: imgYSpring,
-          translateX: "-50%",
-          translateY: "-50%",
-          opacity: hoveredProject ? 1 : 0,
-          scale: hoveredProject ? 1 : 0.8
-        }}
-      >
-        {hoveredProject && <img src={hoveredProject.img} alt={`Preview do case ${hoveredProject.name}`} loading="eager" decoding="async" />}
-      </motion.div>
+      {isDesktop && (
+        <motion.div 
+          className="floating-image"
+          style={{
+            left: imgXSpring,
+            top: imgYSpring,
+            translateX: "-50%",
+            translateY: "-50%",
+            opacity: hoveredProject ? 1 : 0,
+            scale: hoveredProject ? 1 : 0.8
+          }}
+        >
+          {hoveredProject && <img src={hoveredProject.img} alt={`Preview do case ${hoveredProject.name}`} loading="eager" decoding="async" />}
+        </motion.div>
+      )}
 
       <section className="hero" ref={heroRef}>
         <motion.div

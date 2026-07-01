@@ -19,7 +19,10 @@ function AnimatedRoutes() {
     // Scroll to top on route change
     window.scrollTo(0, 0);
 
-    // Inicialização global do Lenis Smooth Scroll
+    // Lenis apenas em desktop — mobile/touch já tem scroll nativo suave
+    const isMobile = window.matchMedia('(max-width: 1024px)').matches || 'ontouchstart' in window;
+    if (isMobile) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
