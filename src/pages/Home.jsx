@@ -150,7 +150,7 @@ export default function Home() {
           scale: hoveredProject ? 1 : 0.8
         }}
       >
-        {hoveredProject && <img src={hoveredProject.img} alt={hoveredProject.name} />}
+        {hoveredProject && <img src={hoveredProject.img} alt={`Preview do case ${hoveredProject.name}`} loading="eager" decoding="async" />}
       </motion.div>
 
       <section className="hero" ref={heroRef}>
@@ -172,8 +172,8 @@ export default function Home() {
             </motion.p>
             <motion.div variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}>
               <MagneticButton>
-                <a href="#contato" className="btn btn-primary">
-                  ESTANCAR O SANGRAMENTO <ArrowUpRight size={24} style={{ marginLeft: '12px' }} />
+                <a href="#contato" className="btn btn-primary" aria-label="Agendar consultoria - Estancar o sangramento">
+                  ESTANCAR O SANGRAMENTO <ArrowUpRight size={24} style={{ marginLeft: '12px' }} aria-hidden="true" />
                 </a>
               </MagneticButton>
             </motion.div>
@@ -239,7 +239,7 @@ export default function Home() {
                 onMouseLeave={() => setHoveredProject(null)}
               >
                 <h3>{project.name}</h3>
-                <div className="project-category">{project.category} <ArrowUpRight size={20} style={{ verticalAlign: 'middle', marginLeft: '8px' }} /></div>
+                <div className="project-category">{project.category} <ArrowUpRight size={20} style={{ verticalAlign: 'middle', marginLeft: '8px' }} aria-hidden="true" /></div>
               </Link>
             ))}
           </div>

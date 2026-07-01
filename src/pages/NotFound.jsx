@@ -1,8 +1,27 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import MagneticButton from '../components/MagneticButton';
 
 export default function NotFound() {
+  const navigate = useNavigate();
+  const [countdown, setCountdown] = useState(5);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          navigate('/');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [navigate]);
+
   return (
     <motion.div 
       className="app-wrapper"
@@ -63,7 +82,7 @@ export default function NotFound() {
             marginBottom: 'var(--space-3)',
           }}
         >
-          Essa página se perdeu. Mas o seu lucro não precisa se perder também.
+          Você tentou acessar algo que não existe. Mas nós existimos. Voltando para o lucro em <span style={{ color: 'var(--accent-primary)', fontWeight: 800 }}>{countdown}</span>...
         </motion.p>
 
         <motion.div

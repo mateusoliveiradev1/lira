@@ -7,6 +7,7 @@ export default function WhatsAppButton() {
       target="_blank" 
       rel="noreferrer"
       className="whatsapp-float-btn"
+      aria-label="Iniciar conversa no WhatsApp"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 200, damping: 10 }}

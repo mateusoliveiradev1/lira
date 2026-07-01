@@ -11,10 +11,10 @@ export default function Footer() {
               Transformamos cliques em lucro com Landing Pages de ultra conversão e design de classe mundial.
             </p>
             <div className="footer-socials" style={{ fontFamily: 'var(--font-display)', fontWeight: 800 }}>
-              <a href="#" target="_blank" rel="noreferrer">IG</a>
-              <a href="#" target="_blank" rel="noreferrer">IN</a>
-              <a href="#" target="_blank" rel="noreferrer">GH</a>
-              <a href="mailto:contato@liraconversao.com.br">MAIL</a>
+              <a href="#" target="_blank" rel="noreferrer" aria-label="Instagram da Lira Studio">IG</a>
+              <a href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn da Lira Studio">IN</a>
+              <a href="#" target="_blank" rel="noreferrer" aria-label="GitHub da Lira Studio">GH</a>
+              <a href="mailto:contato@liraconversao.com.br" aria-label="Enviar email para Lira Studio">MAIL</a>
             </div>
           </div>
           

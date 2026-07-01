@@ -182,6 +182,8 @@ h1, h2, h3, h4, .h2-reveal {
   padding-top: 5rem;
   padding-bottom: var(--space-6);
   border-bottom: 1px solid var(--border-base);
+  overflow: hidden;
+  position: relative;
 }
 
 .hero-grid {

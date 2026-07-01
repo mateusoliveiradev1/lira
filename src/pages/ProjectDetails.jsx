@@ -141,7 +141,9 @@ export default function ProjectDetails() {
           <div ref={imgContainerRef} style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 'var(--space-8)' }}>
             <motion.img 
               src={project.img} 
-              alt={project.name} 
+              alt={`Demonstração visual do case ${project.name}`} 
+              loading="eager"
+              decoding="async"
               style={{ width: '100%', height: 'auto', display: 'block', y: imgY, scale: 1.15 }} 
             />
           </div>
