@@ -1,0 +1,51 @@
+import { Link } from 'react-router-dom';
+
+export default function Footer() {
+  return (
+    <footer className="footer section">
+      <div className="container">
+        <div className="footer-grid">
+          <div className="footer-info">
+            <Link to="/" className="logo">LIRA<span>.</span></Link>
+            <p className="footer-desc">
+              Transformamos cliques em lucro com Landing Pages de ultra conversão e design de classe mundial.
+            </p>
+            <div className="footer-socials" style={{ fontFamily: 'var(--font-display)', fontWeight: 800 }}>
+              <a href="#" target="_blank" rel="noreferrer">IG</a>
+              <a href="#" target="_blank" rel="noreferrer">IN</a>
+              <a href="#" target="_blank" rel="noreferrer">GH</a>
+              <a href="mailto:contato@liraconversao.com.br">MAIL</a>
+            </div>
+          </div>
+          
+          <div className="footer-links-group">
+            <h3>Navegação</h3>
+            <ul>
+              <li><Link to="/">Início</Link></li>
+              <li><a href="/#projetos">Projetos</a></li>
+              <li><a href="/#contato">Contato</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-links-group">
+            <h3>Legal</h3>
+            <ul>
+              <li><Link to="/termos">Termos de Uso</Link></li>
+              <li><Link to="/privacidade">Privacidade</Link></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} Lira Studio. Todos os direitos reservados.</p>
+          <p className="footer-signature">Projetado & Desenvolvido com <span className="text-accent" style={{ fontWeight: 800 }}>Precisão</span></p>
+        </div>
+      </div>
+      
+      {/* Mega Typography at the bottom */}
+      <div className="footer-mega-text">
+        LIRA
+      </div>
+    </footer>
+  );
+}

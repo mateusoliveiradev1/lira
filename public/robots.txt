@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://liraconversao.com.br/sitemap.xml
