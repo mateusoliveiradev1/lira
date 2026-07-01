@@ -521,7 +521,7 @@ h1, h2, h3, h4, .h2-reveal {
   flex-direction: column;
   gap: var(--space-2);
   justify-content: space-between;
-  color: var(--fg-subtle);
+  color: var(--fg-muted);
   font-size: 0.875rem;
   text-align: center;
 }
@@ -572,7 +572,7 @@ html.lenis { height: auto; }
 
 /* ===================== MOBILE OVERRIDES ===================== */
 @media (max-width: 639px) {
-  .hero-title { font-size: clamp(2.25rem, 9vw, 3rem) !important; word-break: break-word; }
+  .hero-title { font-size: clamp(2rem, 8.5vw, 2.75rem) !important; }
   .section-header h2, .section-header .h2-reveal, .cta-section h2 { font-size: 2rem !important; }
   .stat-number { font-size: 1.5rem !important; }
   .project-title { font-size: 2.5rem !important; }

@@ -43,7 +43,7 @@ export default function Footer() {
       </div>
       
       {/* Mega Typography at the bottom */}
-      <div className="footer-mega-text">
+      <div className="footer-mega-text" aria-hidden="true">
         LIRA
       </div>
     </footer>

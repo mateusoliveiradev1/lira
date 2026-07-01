@@ -83,7 +83,7 @@ function FAQItem({ faq, index }) {
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
     >
-      <div className="faq-question" onClick={() => setIsOpen(!isOpen)}>
+      <div className="faq-question" onClick={() => setIsOpen(!isOpen)} role="button" tabIndex={0} aria-expanded={isOpen} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsOpen(!isOpen); } }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
           <span className="faq-index">{num} //</span>
           <h3>{faq.q}</h3>
@@ -213,7 +213,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.15, duration: 0.6 }}
             >
-              <div className="process-step-bg-num">0{idx + 1}</div>
+              <div className="process-step-bg-num" aria-hidden="true">0{idx + 1}</div>
               <div className="process-step-content">
                 <h3>{step.title}</h3>
                 <p>{step.desc}</p>
