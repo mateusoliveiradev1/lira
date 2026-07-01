@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Home from './pages/Home';
 import ProjectDetails from './pages/ProjectDetails';
 import Terms from './pages/Terms';
@@ -69,9 +70,11 @@ function App() {
   return (
     <>
       {!preloaderDone && <Preloader onComplete={() => setPreloaderDone(true)} />}
-      <BrowserRouter>
-        <AnimatedRoutes />
-      </BrowserRouter>
+      <HelmetProvider>
+        <BrowserRouter>
+          <AnimatedRoutes />
+        </BrowserRouter>
+      </HelmetProvider>
     </>
   );
 }

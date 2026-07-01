@@ -3,8 +3,11 @@ import { ArrowUpRight, Plus } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
+import CustomCursor from '../components/CustomCursor';
 import MagneticButton from '../components/MagneticButton';
 import TextReveal from '../components/TextReveal';
+import SEO from '../components/SEO';
+import ExitIntentModal from '../components/ExitIntentModal';
 import Marquee from '../components/Marquee';
 
 const testimonials = [
@@ -25,51 +28,6 @@ const processSteps = [
   { title: "Código de Elite", desc: "Sem builders lentos. Codificamos à mão para garantir nota 100 no Google PageSpeed. Um site que abre antes do cliente piscar." }
 ];
 
-function CustomCursor() {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  
-  const springConfig = { damping: 25, stiffness: 700, mass: 0.5 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
-
-  const [isHovering, setIsHovering] = useState(false);
-
-  useEffect(() => {
-    const moveCursor = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-    };
-    
-    const handleMouseOver = (e) => {
-      if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.faq-question') || e.target.closest('.project-row')) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
-    };
-
-    window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mouseover', handleMouseOver);
-    
-    return () => {
-      window.removeEventListener('mousemove', moveCursor);
-      window.removeEventListener('mouseover', handleMouseOver);
-    };
-  }, [cursorX, cursorY]);
-
-  return (
-    <motion.div 
-      className={`custom-cursor ${isHovering ? 'hovering' : ''}`}
-      style={{
-        left: cursorXSpring,
-        top: cursorYSpring,
-        translateX: "-50%",
-        translateY: "-50%"
-      }}
-    />
-  );
-}
 
 function FAQItem({ faq, index }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -143,7 +101,34 @@ export default function Home() {
 
   return (
     <div className="app-wrapper" onMouseMove={isDesktop ? handleMouseMove : undefined}>
+      <SEO 
+        title="Domine o Seu Mercado"
+        description="Chega de templates genéricos. Nós criamos Landing Pages de ultra conversão com foco implacável em lucro e design de classe mundial."
+      >
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            "name": "Lira Studio",
+            "url": "https://liraconversao.com.br",
+            "logo": "https://liraconversao.com.br/favicon.png",
+            "image": "https://liraconversao.com.br/og-banner.png",
+            "description": "Transformamos cliques em lucro com Landing Pages de ultra conversão, design de elite e performance extrema.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "BR"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+55-17-99743-7433",
+              "contactType": "customer service"
+            },
+            "priceRange": "$$$"
+          })}
+        </script>
+      </SEO>
       <CustomCursor />
+      <ExitIntentModal />
 
       {isDesktop && (
         <motion.div 

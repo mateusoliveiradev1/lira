@@ -1,8 +1,10 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion';
+import CustomCursor from '../components/CustomCursor';
+import SEO from '../components/SEO';
 import { projects } from '../data/projects';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const tagStyle = {
   display: 'inline-flex',
@@ -17,76 +19,9 @@ const tagStyle = {
   letterSpacing: '0.02em',
 };
 
-function CustomCursor() {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  
-  const springConfig = { damping: 25, stiffness: 700, mass: 0.5 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
-
-  const [isHovering, setIsHovering] = useState(false);
-
-  useEffect(() => {
-    const moveCursor = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-    };
-    
-    const handleMouseOver = (e) => {
-      if (e.target.closest('a') || e.target.closest('button')) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
-    };
-
-    window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mouseover', handleMouseOver);
-    
-    return () => {
-      window.removeEventListener('mousemove', moveCursor);
-      window.removeEventListener('mouseover', handleMouseOver);
-    };
-  }, [cursorX, cursorY]);
-
-  return (
-    <motion.div 
-      className={`custom-cursor ${isHovering ? 'hovering' : ''}`}
-      style={{
-        left: cursorXSpring,
-        top: cursorYSpring,
-        translateX: "-50%",
-        translateY: "-50%"
-      }}
-    />
-  );
-}
-
 export default function ProjectDetails() {
   const { slug } = useParams();
   const project = projects.find(p => p.slug === slug);
-
-  useEffect(() => {
-    if (project) {
-      document.title = `LIRA. | Case ${project.name}`;
-      
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.name = 'description';
-        document.head.appendChild(metaDesc);
-      }
-      metaDesc.content = project.challenge.slice(0, 150) + '...';
-    } else {
-      document.title = 'LIRA. | Landing Pages de Alta Conversão';
-    }
-    
-    // Reset on unmount
-    return () => {
-      document.title = 'LIRA. | Landing Pages de Alta Conversão';
-    };
-  }, [project]);
 
   // Parallax Setup
   const imgContainerRef = useRef(null);
@@ -107,6 +42,12 @@ export default function ProjectDetails() {
 
   return (
     <div className="app-wrapper project-details">
+      <SEO 
+        title={`Case ${project.name}`}
+        description={`Confira o case completo de ${project.name}: ${project.challenge.substring(0, 100)}...`}
+        image={`https://liraconversao.com.br${project.img}`}
+        url={`https://liraconversao.com.br/projeto/${project.slug}`}
+      />
       <CustomCursor />
       
       <div className="container" style={{ paddingTop: '150px', paddingBottom: '100px' }}>
