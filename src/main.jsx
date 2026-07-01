@@ -6,18 +6,28 @@ import App from './App.jsx';
 
 if (typeof window !== 'undefined') {
   console.log(
-    `%c
-   __    __                  
-  / /   / /  ___ __________ _
- / /__ / /__/ _ \`/ __/ __/ _ \`
-/____//____/\_,_/_/  \__/\_,_/
-                              
-%cInspecionando nosso código? Você é curioso.
-Que tal focar em escalar as suas vendas? Fale com a Lira Studio.
-👉 https://liraconversao.com.br
-`,
-    "font-family: monospace; color: #D7FF00; font-size: 14px; font-weight: bold;",
-    "font-family: sans-serif; color: #ffffff; font-size: 12px; padding-top: 10px;"
+    "%c██╗     ██╗██████╗  █████╗ \n██║     ██║██╔══██╗██╔══██╗\n██║     ██║██████╔╝███████║\n██║     ██║██╔══██╗██╔══██║\n███████╗██║██║  ██║██║  ██║\n╚══════╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝",
+    "color: #D7FF00; font-size: 12px; font-weight: bold; font-family: monospace; line-height: 1.4;"
+  );
+  console.log(
+    "%c S T U D I O",
+    "color: #D7FF00; font-size: 16px; font-weight: bold; letter-spacing: 12px; font-family: monospace;"
+  );
+  console.log(
+    "%c─────────────────────────────────────",
+    "color: #333; font-family: monospace;"
+  );
+  console.log(
+    "%c⚡ Inspecionando nosso código?\n%c   Você tem bom gosto.\n\n%c💰 Enquanto você analisa pixels,\n%c   nossos clientes estão lucrando.\n\n%c→  https://liraconversao.com.br",
+    "color: #fff; font-size: 13px; font-weight: bold; font-family: system-ui;",
+    "color: #999; font-size: 12px; font-family: system-ui;",
+    "color: #D7FF00; font-size: 13px; font-weight: bold; font-family: system-ui;",
+    "color: #999; font-size: 12px; font-family: system-ui;",
+    "color: #D7FF00; font-size: 11px; font-family: monospace; text-decoration: underline;"
+  );
+  console.log(
+    "%c─────────────────────────────────────",
+    "color: #333; font-family: monospace;"
   );
 }
 
