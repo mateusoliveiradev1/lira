@@ -12,7 +12,6 @@ import LiveClock from '../components/LiveClock';
 import TiltCard from '../components/TiltCard';
 import CodeTooltip from '../components/CodeTooltip';
 import MediaTooltip from '../components/MediaTooltip';
-import { playHover, playClick } from '../utils/uiSound';
 
 const testimonials = [
   { quote: "A Lira Studio não entregou apenas um site bonito, eles construíram uma verdadeira impressora de dinheiro. Nosso custo por lead caiu pela metade na primeira semana.", author: "João P.", role: "CEO, TechFlow" },
@@ -45,7 +44,7 @@ function FAQItem({ faq, index }) {
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
     >
-      <div className="faq-question" onMouseEnter={playHover} onClick={() => { setIsOpen(!isOpen); playClick(); }} role="button" tabIndex={0} aria-expanded={isOpen} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsOpen(!isOpen); playClick(); } }}>
+      <div className="faq-question" onClick={() => { setIsOpen(!isOpen); }} role="button" tabIndex={0} aria-expanded={isOpen} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsOpen(!isOpen); } }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
           <span className="faq-index">{num} //</span>
           <h3>{faq.q}</h3>
@@ -169,7 +168,7 @@ export default function Home() {
             </motion.p>
             <motion.div variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}>
               <MagneticButton>
-                <a href="#contato" className="btn btn-primary" aria-label="Agendar consultoria - Estancar o sangramento" onMouseEnter={playHover} onClick={playClick}>
+                <a href="#contato" className="btn btn-primary" aria-label="Agendar consultoria - Estancar o sangramento">
                   ESTANCAR O SANGRAMENTO <ArrowUpRight size={24} style={{ marginLeft: '12px' }} aria-hidden="true" />
                 </a>
               </MagneticButton>
@@ -232,9 +231,8 @@ export default function Home() {
                 to={`/projeto/${project.slug}`}
                 className="project-row" 
                 key={idx}
-                onMouseEnter={() => { setHoveredProject(project); playHover(); }}
+                onMouseEnter={() => { setHoveredProject(project); }}
                 onMouseLeave={() => setHoveredProject(null)}
-                onClick={playClick}
               >
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
                 <h3 style={{ margin: 0 }}>
