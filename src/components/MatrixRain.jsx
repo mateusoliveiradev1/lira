@@ -80,17 +80,24 @@ export default function MatrixRain() {
   if (!isActive) return null;
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 9999999, // Na frente de TUDO
-        pointerEvents: 'none', // Não atrapalha cliques
-      }}
-    />
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      zIndex: 9999999,
+      backgroundColor: 'var(--bg-base)', // Fundo sólido
+      pointerEvents: 'auto', // Bloqueia interações com o site de baixo
+    }}>
+      <canvas
+        ref={canvasRef}
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'block'
+        }}
+      />
+    </div>
   );
 }

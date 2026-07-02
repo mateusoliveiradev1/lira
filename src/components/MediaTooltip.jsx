@@ -24,7 +24,7 @@ export default function MediaTooltip({ children, mediaUrl, mediaType = 'image', 
     <span 
       style={{ 
         position: 'relative', 
-        display: 'inline-block',
+        display: 'inline',
         cursor: 'none', // Força o mouse a sumir (ou usar o custom)
         textDecoration: 'underline',
         textDecorationColor: 'var(--accent-primary)',
