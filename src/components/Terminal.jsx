@@ -58,6 +58,20 @@ export default function Terminal() {
     };
   }, [isOpen]);
 
+  // Fechar ao clicar fora do terminal
+  const terminalRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (terminalRef.current && !terminalRef.current.contains(e.target) && !e.target.closest('.terminal-toggle-btn')) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+
   const handleCommand = (cmd) => {
     const command = cmd.trim().toLowerCase();
     
@@ -141,6 +155,7 @@ export default function Terminal() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={terminalRef}
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.95 }}
