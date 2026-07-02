@@ -11,6 +11,7 @@ import Marquee from '../components/Marquee';
 import LiveClock from '../components/LiveClock';
 import TiltCard from '../components/TiltCard';
 import CodeTooltip from '../components/CodeTooltip';
+import MediaTooltip from '../components/MediaTooltip';
 import { playHover, playClick } from '../utils/uiSound';
 
 const testimonials = [
@@ -164,7 +165,7 @@ export default function Home() {
               <span className="text-accent">QUEIMANDO</span> DINHEIRO.
             </motion.h1>
             <motion.p className="hero-subtitle" variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}>
-              Chega de templates genéricos e tráfego perdido. Nós criamos <CodeTooltip snippet={'<LandingPage\n  conversion={99.9}\n  design="awwwards"\n  performance={100}\n/>'} language="jsx">Landing Pages</CodeTooltip> de ultra conversão com foco implacável em lucro e design de classe mundial.
+              Chega de templates genéricos e tráfego perdido. Nós criamos <CodeTooltip snippet={'<LandingPage\n  conversion={99.9}\n  design="awwwards"\n  performance={100}\n/>'} language="jsx">Landing Pages</CodeTooltip> de ultra conversão com foco implacável em <MediaTooltip mediaUrl={projects[0].img} width={300} height={200}>lucro</MediaTooltip> e <MediaTooltip mediaUrl={projects[1]?.img || projects[0].img} width={350} height={200}>design de classe mundial</MediaTooltip>.
             </motion.p>
             <motion.div variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}>
               <MagneticButton>

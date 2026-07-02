@@ -87,7 +87,7 @@ export default function Terminal() {
 
     switch (command) {
       case 'help':
-        response = `Comandos disponíveis:\n  whoami    - Quem sou eu?\n  projects  - Lista meus projetos\n  contact   - Meios de contato\n  clear     - Limpa o terminal\n  exit      - Fecha o terminal`;
+        response = `Comandos disponíveis:\n  whoami    - Quem sou eu?\n  projects  - Lista meus projetos\n  contact   - Meios de contato\n  clear     - Limpa o terminal\n  exit      - Fecha o terminal\n  matrix    - Ativar protocolo Matrix`;
         break;
       case 'whoami':
         response = `Mateus Oliveira (Lira).\nDesenvolvedor Web Fullstack.\nCriando soluções digitais que convertem e encantam.`;
@@ -96,8 +96,20 @@ export default function Terminal() {
         response = `Projetos de destaque:\n1. Validade Zero (App Mobile)\n2. Lira Studio (Landing Page)\n3. Resenha Web (Portal Esportivo)\n\nNavegue pelo menu do site para ver todos.`;
         break;
       case 'contact':
-        response = `Email: ola@liraconversao.com.br\nWhatsApp: +55 (seu numero aqui)`;
-        break;
+        setHistory(prev => [...prev, 
+          { type: 'input', text: `guest@lira-studio:~$ ${command}` },
+          { type: 'output', text: 'Email: ola@liraconversao.com.br' },
+          { type: 'output', text: 'WhatsApp: +55 (seu numero aqui)' }
+        ]);
+        return;
+      case 'matrix':
+        setHistory(prev => [...prev, 
+          { type: 'input', text: `guest@lira-studio:~$ ${command}` },
+          { type: 'output', text: 'Iniciando protocolo Matrix...' }
+        ]);
+        window.dispatchEvent(new Event('trigger-matrix'));
+        setTimeout(() => setIsOpen(false), 1500);
+        return;
       case 'clear':
         setHistory([]);
         return;

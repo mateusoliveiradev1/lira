@@ -15,28 +15,29 @@ export default function Footer() {
               Transformamos cliques em lucro com Landing Pages de ultra conversão e design de classe mundial.
             </p>
             <div className="footer-socials">
-              {/* <a href="#" target="_blank" rel="noreferrer" aria-label="Instagram da Lira Studio">Instagram</a> */}
-              {/* <a href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn da Lira Studio">LinkedIn</a> */}
-              {/* <a href="#" target="_blank" rel="noreferrer" aria-label="GitHub da Lira Studio">GitHub</a> */}
-              <a href="https://wa.me/5517997437433" target="_blank" rel="noreferrer" aria-label="WhatsApp da Lira Studio">WhatsApp</a>
-              <a href="mailto:warface01031999@gmail.com" aria-label="Enviar email para Lira Studio">E-mail</a>
+              <MagneticButton>
+                <a href="https://wa.me/5517997437433" target="_blank" rel="noreferrer" aria-label="WhatsApp da Lira Studio">WhatsApp</a>
+              </MagneticButton>
+              <MagneticButton>
+                <a href="mailto:warface01031999@gmail.com" aria-label="Enviar email para Lira Studio">E-mail</a>
+              </MagneticButton>
             </div>
           </div>
           
           <div className="footer-links-group">
             <h3>Navegação</h3>
             <ul>
-              <li><Link to="/">Início</Link></li>
-              <li><a href="/#projetos">Projetos</a></li>
-              <li><a href="/#contato">Contato</a></li>
+              <li><MagneticButton><Link to="/">Início</Link></MagneticButton></li>
+              <li><MagneticButton><a href="/#projetos">Projetos</a></MagneticButton></li>
+              <li><MagneticButton><a href="/#contato">Contato</a></MagneticButton></li>
             </ul>
           </div>
 
           <div className="footer-links-group">
             <h3>Legal</h3>
             <ul>
-              <li><Link to="/termos">Termos de Uso</Link></li>
-              <li><Link to="/privacidade">Privacidade</Link></li>
+              <li><MagneticButton><Link to="/termos">Termos de Uso</Link></MagneticButton></li>
+              <li><MagneticButton><Link to="/privacidade">Privacidade</Link></MagneticButton></li>
             </ul>
           </div>
         </div>

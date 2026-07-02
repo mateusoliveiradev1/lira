@@ -16,6 +16,7 @@ import ProgressBar from './components/ProgressBar';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import Terminal from './components/Terminal';
 import CustomCursor from './components/CustomCursor';
+import MatrixRain from './components/MatrixRain';
 import useDynamicAttention from './utils/useDynamicAttention';
 
 function AnimatedRoutes() {
@@ -83,6 +84,7 @@ function App() {
       <ProgressBar />
       <ThemeSwitcher />
       <Terminal />
+      <MatrixRain />
       {!preloaderDone && <Preloader onComplete={() => setPreloaderDone(true)} />}
       <BrowserRouter>
         <AnimatedRoutes />
