@@ -1,22 +1,39 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 import FooterCanvas from './FooterCanvas';
 
 export default function Footer() {
   const footerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: footerRef,
-    offset: ["start end", "end end"]
-  });
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 }); // Começa fora da tela
 
-  // O texto começa clipado no topo (invisível) e vai revelando até baixo conforme o scroll avança.
-  const clipHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const handleMouseMove = (e) => {
+    if (!footerRef.current) return;
+    const rect = footerRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePos({ x: -1000, y: -1000 }); // Esconde a luz quando tira o mouse
+  };
 
   return (
-    <footer ref={footerRef} className="footer section" style={{ position: 'relative', overflow: 'hidden' }}>
+    <footer 
+      ref={footerRef} 
+      className="footer section" 
+      style={{ 
+        position: 'relative', 
+        overflow: 'hidden',
+        '--mouse-x': `${mousePos.x}px`,
+        '--mouse-y': `${mousePos.y}px`
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       <FooterCanvas />
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="footer-grid">
@@ -59,15 +76,12 @@ export default function Footer() {
         </div>
       </div>
       
-      {/* Mega Typography at the bottom (Scroll Fill) */}
+      {/* Mega Typography at the bottom (Spotlight Fill) */}
       <div className="footer-mega-text" aria-hidden="true" data-text="LIRA">
         <span className="footer-mega-text-outline">LIRA</span>
-        <motion.span 
-          className="footer-mega-text-fill" 
-          style={{ height: clipHeight }}
-        >
+        <span className="footer-mega-text-fill">
           LIRA
-        </motion.span>
+        </span>
       </div>
     </footer>
   );

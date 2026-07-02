@@ -744,10 +744,14 @@ h1, h2, h3, h4, .h2-reveal {
   left: 0;
   width: 100%;
   color: var(--accent-primary);
-  overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: flex-end; /* Para ancorar embaixo e subir */
+  align-items: flex-end;
+  /* O pulo do gato: Spotlight Effect */
+  -webkit-mask-image: radial-gradient(circle 350px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black 0%, transparent 100%);
+  mask-image: radial-gradient(circle 350px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black 0%, transparent 100%);
+  pointer-events: none; /* Deixa o mouse passar pra baixo */
+  transition: mask-image 0.1s ease-out, -webkit-mask-image 0.1s ease-out;
 }
 
 /* ===================== Floating Action Button ===================== */
