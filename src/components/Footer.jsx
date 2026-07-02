@@ -59,11 +59,11 @@ export default function Footer() {
         </div>
       </div>
       
-      {/* Mega Typography at the bottom (Scroll Fill + Cyberpunk Glitch) */}
+      {/* Mega Typography at the bottom (Scroll Fill) */}
       <div className="footer-mega-text" aria-hidden="true" data-text="LIRA">
         <span className="footer-mega-text-outline">LIRA</span>
         <motion.span 
-          className="footer-mega-text-fill glitch-hover" 
+          className="footer-mega-text-fill" 
           style={{ height: clipHeight }}
         >
           LIRA
