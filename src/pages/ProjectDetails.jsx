@@ -1,7 +1,6 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import { motion, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion';
-import CustomCursor from '../components/CustomCursor';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import SEO from '../components/SEO';
 import { projects } from '../data/projects';
 import { useEffect, useRef } from 'react';
@@ -51,7 +50,6 @@ export default function ProjectDetails() {
         image={`https://liraconversao.com.br${project.img}`}
         url={`https://liraconversao.com.br/projeto/${project.slug}`}
       />
-      <CustomCursor />
       
       <div className="container" style={{ paddingTop: '150px', paddingBottom: '100px' }}>
         <Link to="/" className="btn" style={{ padding: '0.75rem 1.5rem', marginBottom: '4rem', background: 'var(--bg-surface)', color: 'var(--fg-base)' }}>

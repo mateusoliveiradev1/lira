@@ -3,7 +3,6 @@ import { ArrowUpRight, Plus } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
-import CustomCursor from '../components/CustomCursor';
 import MagneticButton from '../components/MagneticButton';
 import TextReveal from '../components/TextReveal';
 import SEO from '../components/SEO';
@@ -131,7 +130,6 @@ export default function Home() {
           })}
         </script>
       </SEO>
-      <CustomCursor />
       <ExitIntentModal />
       <LiveClock />
 

@@ -15,6 +15,7 @@ import PageTransition from './components/PageTransition';
 import ProgressBar from './components/ProgressBar';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import Terminal from './components/Terminal';
+import CustomCursor from './components/CustomCursor';
 import useDynamicAttention from './utils/useDynamicAttention';
 
 function AnimatedRoutes() {
@@ -75,6 +76,7 @@ function App() {
 
   return (
     <HelmetProvider>
+      <CustomCursor />
       <ProgressBar />
       <ThemeSwitcher />
       <Terminal />
