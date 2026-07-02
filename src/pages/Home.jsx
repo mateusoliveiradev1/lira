@@ -199,23 +199,37 @@ export default function Home() {
         <div className="section-header">
           <TextReveal text={["COMO", "FUNCIONA"]} className="h2-reveal" />
         </div>
-        <div className="process-grid">
-          {processSteps.map((step, idx) => (
-            <motion.div 
-              className="process-step" 
-              key={idx}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.15, duration: 0.6 }}
-            >
-              <div className="process-step-bg-num" aria-hidden="true">0{idx + 1}</div>
-              <div className="process-step-content">
-                <h3>{step.title}</h3>
-                <p>{step.desc}</p>
-              </div>
-            </motion.div>
-          ))}
+        <div className="process-layout">
+          {/* Lado esquerdo — sticky */}
+          <div className="process-sticky">
+            <div className="process-sticky-label" aria-hidden="true">
+              O<br/>Processo
+            </div>
+            <p className="process-sticky-desc">
+              Três etapas brutais. Sem enrolação, sem reuniões infinitas. Cada fase foi desenhada para extrair o máximo de resultado no menor tempo possível.
+            </p>
+            <div className="process-sticky-line" />
+          </div>
+
+          {/* Lado direito — steps que rolam */}
+          <div className="process-steps">
+            {processSteps.map((step, idx) => (
+              <motion.div 
+                className="process-step" 
+                key={idx}
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.15, duration: 0.6 }}
+              >
+                <div className="process-step-num" aria-hidden="true">0{idx + 1}</div>
+                <div className="process-step-content">
+                  <h3>{step.title}</h3>
+                  <p>{step.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -291,8 +305,11 @@ export default function Home() {
         <div className="section-header">
           <TextReveal text={["PERGUNTAS", "FREQUENTES"]} className="h2-reveal" />
         </div>
-        <div className="faq-list">
-          {faqs.map((f, i) => <FAQItem key={i} faq={f} index={i} />)}
+        <div className="faq-layout">
+          <div className="faq-side-label" aria-hidden="true">F.A.Q.</div>
+          <div className="faq-list">
+            {faqs.map((f, i) => <FAQItem key={i} faq={f} index={i} />)}
+          </div>
         </div>
       </section>
 
