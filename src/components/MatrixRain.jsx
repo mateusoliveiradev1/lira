@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { playMatrixSound, stopMatrixSound } from '../utils/uiSound';
 
 export default function MatrixRain() {
   const [isActive, setIsActive] = useState(false);
@@ -7,14 +8,19 @@ export default function MatrixRain() {
   useEffect(() => {
     const handleTrigger = () => {
       setIsActive(true);
+      playMatrixSound();
       // Desliga sozinho depois de 10 segundos
       setTimeout(() => {
         setIsActive(false);
+        stopMatrixSound();
       }, 10000);
     };
 
     window.addEventListener('trigger-matrix', handleTrigger);
-    return () => window.removeEventListener('trigger-matrix', handleTrigger);
+    return () => {
+      window.removeEventListener('trigger-matrix', handleTrigger);
+      stopMatrixSound();
+    };
   }, []);
 
   useEffect(() => {

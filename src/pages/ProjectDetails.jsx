@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react';
 import PhoneMockup from '../components/PhoneMockup';
 import PushNotification from '../components/PushNotification';
 import AnimatedCounter from '../components/AnimatedCounter';
+import CodeTooltip from '../components/CodeTooltip';
 
 const tagStyle = {
   display: 'inline-flex',
@@ -81,7 +82,12 @@ export default function ProjectDetails() {
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: 'var(--space-6)' }}>
             {project.stack && project.stack.map((tech, i) => (
               <span key={i} style={{ ...tagStyle, color: i === 0 ? 'var(--accent-primary)' : 'var(--fg-muted)', borderColor: i === 0 ? 'var(--accent-primary)' : 'var(--border-base)' }}>
-                {tech}
+                <CodeTooltip 
+                  snippet={`{\n  "dependency": "${tech}",\n  "status": "active",\n  "performance": "blazing-fast"\n}`} 
+                  language="json"
+                >
+                  {tech}
+                </CodeTooltip>
               </span>
             ))}
           </div>
