@@ -35,7 +35,16 @@ export default function Navbar() {
     >
       <div className="navbar-container">
         <MagneticButton>
-          <a href="#" className="navbar-logo">
+          <a 
+            href="#" 
+            className="navbar-logo"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              // Se o lenis estiver ativo, ele também tem um método scrollTo
+              if (window.__lenis) window.__lenis.scrollTo(0);
+            }}
+          >
             LIRA<span>.</span>
           </a>
         </MagneticButton>
