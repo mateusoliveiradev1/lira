@@ -260,7 +260,7 @@ h1, h2, h3, h4, .h2-reveal {
   line-height: 1.3;
 }
 
-/* ===================== Process (Sticky Side-by-Side) ===================== */
+/* ===================== Process (Timeline Vertical) ===================== */
 .process {
   border-bottom: 1px solid var(--border-base);
 }
@@ -270,7 +270,6 @@ h1, h2, h3, h4, .h2-reveal {
   grid-template-columns: 1fr 1fr;
   gap: var(--space-6);
   margin-top: var(--space-5);
-  min-height: 80vh;
 }
 
 .process-sticky {
@@ -282,7 +281,7 @@ h1, h2, h3, h4, .h2-reveal {
 
 .process-sticky-label {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 8vw, 7rem);
+  font-size: clamp(3.5rem, 7vw, 6rem);
   font-weight: 800;
   line-height: 0.95;
   color: transparent;
@@ -294,58 +293,67 @@ h1, h2, h3, h4, .h2-reveal {
 
 .process-sticky-desc {
   color: var(--fg-muted);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1.7;
   max-width: 380px;
-}
-
-.process-sticky-line {
-  width: 60px;
-  height: 2px;
-  background: var(--accent-primary);
-  margin-top: var(--space-4);
-  border-radius: 99px;
 }
 
 .process-steps {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 0;
+  position: relative;
+  padding-left: var(--space-5);
+  border-left: 1px solid var(--border-base);
 }
 
 .process-step {
-  padding: var(--space-5);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-base);
-  border-radius: var(--radius-md);
+  padding: var(--space-4) 0 var(--space-5) var(--space-4);
+  background: transparent;
+  border: none;
+  border-radius: 0;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   transition: all var(--transition-normal);
   display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
-.process-step:hover {
+/* Dot na timeline */
+.process-step::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--space-5) - 5px);
+  top: var(--space-5);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bg-base);
+  border: 2px solid var(--border-base);
+  transition: all var(--transition-normal);
+  z-index: 2;
+}
+
+.process-step:hover::before {
   border-color: var(--accent-primary);
-  transform: translateX(8px);
-  box-shadow: -4px 0 0 var(--accent-primary);
+  background: var(--accent-primary);
+  box-shadow: 0 0 12px var(--accent-primary);
 }
 
 .process-step-num {
   font-family: var(--font-display);
-  font-size: 4rem;
+  font-size: 0.85rem;
   font-weight: 800;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
-  flex-shrink: 0;
-  transition: all var(--transition-normal);
+  color: var(--accent-primary);
+  opacity: 0.5;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: opacity var(--transition-fast);
 }
 
 .process-step:hover .process-step-num {
-  -webkit-text-stroke-color: var(--accent-primary);
-  color: rgba(212, 255, 0, 0.05);
+  opacity: 1;
 }
 
 .process-step-content {
@@ -354,12 +362,12 @@ h1, h2, h3, h4, .h2-reveal {
 }
 
 .process-step h3 {
-  font-size: 1.35rem;
-  margin-bottom: var(--space-2);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  margin-bottom: var(--space-1);
   color: var(--fg-base);
   font-family: var(--font-display);
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
   transition: color var(--transition-fast);
 }
 
@@ -373,36 +381,22 @@ h1, h2, h3, h4, .h2-reveal {
   line-height: 1.7;
 }
 
-/* Progress Line (SVG-like vertical) */
-.process-progress {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 2px;
-  height: 0%;
-  background: var(--accent-primary);
-  transition: height 0.6s ease;
-  border-radius: 99px;
-}
-
 @media (max-width: 768px) {
   .process-layout {
     grid-template-columns: 1fr;
-    min-height: auto;
   }
   .process-sticky {
     position: relative;
     top: auto;
   }
   .process-sticky-label {
-    font-size: 3rem;
-  }
-  .process-step {
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-  .process-step-num {
     font-size: 2.5rem;
+  }
+  .process-steps {
+    padding-left: var(--space-4);
+  }
+  .process-step::before {
+    left: calc(-1 * var(--space-4) - 5px);
   }
 }
 
@@ -420,38 +414,43 @@ h1, h2, h3, h4, .h2-reveal {
 }
 
 .section-header { margin-bottom: var(--space-5); }
-.section-header h2, .section-header .h2-reveal { font-size: clamp(1.75rem, 8vw, 5rem); }
 
 .project-list {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--border-base);
 }
 
 .project-row {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  justify-content: space-between;
+  align-items: center;
   padding: var(--space-4) 0;
   border-bottom: 1px solid var(--border-base);
-  transition: all var(--transition-normal);
-  position: relative;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.project-row:hover {
+  padding-left: var(--space-3);
 }
 
 .project-row h3 {
-  font-size: clamp(1.75rem, 8vw, 4.5rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--fg-base);
   transition: color var(--transition-fast);
-  line-height: 1;
 }
 
-.project-row:active h3,
 .project-row:hover h3 { color: var(--accent-primary); }
 
 .project-category {
+  font-family: var(--font-mono);
   font-size: 0.875rem;
   color: var(--fg-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  white-space: nowrap;
+  display: none; /* Oculto por padrão (mobile-first) */
 }
 
 /* ===================== Floating Image (desktop only) ===================== */
@@ -459,35 +458,18 @@ h1, h2, h3, h4, .h2-reveal {
   display: none; /* Oculto por padrão (mobile-first) */
 }
 
-/* ===================== FAQ (Mega Accordion Side-by-Side) ===================== */
+/* ===================== FAQ (Premium Accordion) ===================== */
 .faq {
   background: var(--bg-base);
   border-bottom: 1px solid var(--border-base);
 }
 
 .faq-layout {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--space-6);
   margin-top: var(--space-5);
-  align-items: start;
 }
 
 .faq-side-label {
-  position: sticky;
-  top: 120px;
-  writing-mode: vertical-lr;
-  transform: rotate(180deg);
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 5rem);
-  font-weight: 800;
-  text-transform: uppercase;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
-  letter-spacing: 0.05em;
-  line-height: 1;
-  user-select: none;
-  white-space: nowrap;
+  display: none;
 }
 
 .faq-list {
@@ -500,18 +482,42 @@ h1, h2, h3, h4, .h2-reveal {
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--border-base);
-  padding: var(--space-4) 0;
+  padding: var(--space-5) 0;
   border-radius: 0;
   transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
 }
 
 .faq-item:first-child {
   border-top: 1px solid var(--border-base);
 }
 
+/* Número gigante atrás */
+.faq-item::before {
+  content: attr(data-num);
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 12vw, 10rem);
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+  line-height: 1;
+  transition: all var(--transition-normal);
+}
+
+.faq-item:hover::before,
+.faq-item.open::before {
+  -webkit-text-stroke-color: var(--accent-primary);
+  opacity: 0.15;
+}
+
 .faq-item.open, .faq-item:hover {
   background: transparent;
-  border-color: var(--accent-primary);
 }
 
 .faq-question {
@@ -520,7 +526,9 @@ h1, h2, h3, h4, .h2-reveal {
   align-items: center;
   gap: var(--space-3);
   cursor: pointer;
-  transition: transform var(--transition-fast), padding var(--transition-fast);
+  transition: transform var(--transition-fast);
+  position: relative;
+  z-index: 1;
 }
 
 .faq-question:hover {
@@ -531,14 +539,14 @@ h1, h2, h3, h4, .h2-reveal {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   color: var(--accent-primary);
-  opacity: 0.6;
+  opacity: 0.5;
   letter-spacing: 0.05em;
   font-weight: bold;
   flex-shrink: 0;
 }
 
 .faq-question h3 {
-  font-size: clamp(1.1rem, 3.5vw, 1.75rem);
+  font-size: clamp(1.15rem, 3.5vw, 1.75rem);
   text-transform: none;
   letter-spacing: -0.02em;
   font-weight: 700;
@@ -569,24 +577,19 @@ h1, h2, h3, h4, .h2-reveal {
   border-top: none;
   margin-top: var(--space-2);
   letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
-  .faq-layout {
-    grid-template-columns: 1fr;
-  }
-  .faq-side-label {
-    writing-mode: horizontal-tb;
-    transform: none;
-    position: relative;
-    top: auto;
-    font-size: 2.5rem;
-  }
   .faq-question:hover {
     transform: translateX(6px);
   }
   .faq-answer {
     padding-left: 0;
+  }
+  .faq-item::before {
+    font-size: 4rem;
   }
 }
 
@@ -716,14 +719,99 @@ h1, h2, h3, h4, .h2-reveal {
 .footer-signature { letter-spacing: 0.05em; text-transform: uppercase; }
 
 .footer-mega-text {
+  position: relative;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 25vw;
   line-height: 0.75;
-  color: rgba(255, 255, 255, 0.02);
   text-align: center;
   user-select: none;
   transform: translateY(10%);
+  display: flex;
+  justify-content: center;
+}
+
+.footer-mega-text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+}
+
+.footer-mega-text-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: var(--accent-primary);
+  overflow: hidden;
+  /* Isso vai garantir que o texto seja "cortado" de baixo pra cima ou de cima pra baixo dependendo de como a altura muda */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ===================== Glitch Hover (Cyberpunk) ===================== */
+.glitch-hover {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.glitch-hover:hover {
+  animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+.glitch-hover:hover::before,
+.glitch-hover:hover::after {
+  content: "LIRA";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: var(--accent-primary);
+}
+
+.glitch-hover:hover::before {
+  left: 4px;
+  text-shadow: -2px 0 #ff00c1;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.glitch-hover:hover::after {
+  left: -4px;
+  text-shadow: -2px 0 #00fff9;
+  clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
+  animation: glitch-anim2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%); }
+  20% { clip-path: polygon(0 15%, 100% 15%, 100% 15%, 0 15%); }
+  40% { clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%); }
+  60% { clip-path: polygon(0 1%, 100% 1%, 100% 2%, 0 2%); }
+  80% { clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%); }
+  100% { clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip-path: polygon(0 25%, 100% 25%, 100% 30%, 0 30%); }
+  20% { clip-path: polygon(0 3%, 100% 3%, 100% 3%, 0 3%); }
+  40% { clip-path: polygon(0 5%, 100% 5%, 100% 20%, 0 20%); }
+  60% { clip-path: polygon(0 20%, 100% 20%, 100% 20%, 0 20%); }
+  80% { clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%); }
+  100% { clip-path: polygon(0 15%, 100% 15%, 100% 15%, 0 15%); }
+}
+
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(-20deg); }
+  40% { transform: skew(20deg); }
+  60% { transform: skew(-10deg); }
+  80% { transform: skew(10deg); }
+  100% { transform: skew(0deg); }
 }
 
 /* ===================== Floating Action Button ===================== */

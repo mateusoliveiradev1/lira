@@ -39,6 +39,7 @@ function FAQItem({ faq, index }) {
   return (
     <motion.div 
       className={`faq-item ${isOpen ? 'open' : ''}`}
+      data-num={num}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -306,7 +307,6 @@ export default function Home() {
           <TextReveal text={["PERGUNTAS", "FREQUENTES"]} className="h2-reveal" />
         </div>
         <div className="faq-layout">
-          <div className="faq-side-label" aria-hidden="true">F.A.Q.</div>
           <div className="faq-list">
             {faqs.map((f, i) => <FAQItem key={i} faq={f} index={i} />)}
           </div>

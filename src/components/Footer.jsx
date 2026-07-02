@@ -1,11 +1,22 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 import FooterCanvas from './FooterCanvas';
 
 export default function Footer() {
+  const footerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: footerRef,
+    offset: ["start end", "end end"]
+  });
+
+  // O texto começa clipado no topo (invisível) e vai revelando até baixo conforme o scroll avança.
+  const clipHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   return (
-    <footer className="footer section" style={{ position: 'relative', overflow: 'hidden' }}>
+    <footer ref={footerRef} className="footer section" style={{ position: 'relative', overflow: 'hidden' }}>
       <FooterCanvas />
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="footer-grid">
@@ -48,9 +59,15 @@ export default function Footer() {
         </div>
       </div>
       
-      {/* Mega Typography at the bottom */}
-      <div className="footer-mega-text" aria-hidden="true">
-        LIRA
+      {/* Mega Typography at the bottom (Scroll Fill + Cyberpunk Glitch) */}
+      <div className="footer-mega-text" aria-hidden="true" data-text="LIRA">
+        <span className="footer-mega-text-outline">LIRA</span>
+        <motion.span 
+          className="footer-mega-text-fill glitch-hover" 
+          style={{ height: clipHeight }}
+        >
+          LIRA
+        </motion.span>
       </div>
     </footer>
   );
