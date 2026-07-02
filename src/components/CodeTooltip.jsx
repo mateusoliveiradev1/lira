@@ -3,17 +3,32 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CodeTooltip({ children, snippet, language = "jsx" }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
+
+  // No mobile: só renderiza o children puro, sem wrapper de hover
+  if (isMobile) {
+    return (
+      <span style={{ 
+        borderBottom: '1px dashed var(--accent-primary)',
+        color: 'var(--fg-base)'
+      }}>
+        {children}
+      </span>
+    );
+  }
 
   return (
     <span 
-      style={{ position: 'relative', display: 'inline-block', cursor: isTouchDevice ? 'default' : 'help' }}
-      onMouseEnter={() => { if (!isTouchDevice) setIsHovered(true); }}
-      onMouseLeave={() => { if (!isTouchDevice) setIsHovered(false); }}
+      style={{ position: 'relative', display: 'inline-block', cursor: 'help' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <span style={{ 
         borderBottom: '1px dashed var(--accent-primary)',
@@ -48,7 +63,6 @@ export default function CodeTooltip({ children, snippet, language = "jsx" }) {
               pointerEvents: 'none'
             }}
           >
-            {/* Setinha apontando para baixo */}
             <div style={{
               position: 'absolute',
               bottom: '-6px',

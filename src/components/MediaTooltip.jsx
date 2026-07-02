@@ -4,10 +4,13 @@ import { motion, AnimatePresence, useSpring } from 'framer-motion';
 export default function MediaTooltip({ children, mediaUrl, mediaType = 'image', width = 300, height = 200 }) {
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
   const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
@@ -25,19 +28,32 @@ export default function MediaTooltip({ children, mediaUrl, mediaType = 'image', 
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
 
+  // No mobile: só renderiza o texto puro com underline bonito
+  if (isMobile) {
+    return (
+      <span style={{ 
+        textDecoration: 'underline',
+        textDecorationColor: 'var(--accent-primary)',
+        textUnderlineOffset: '4px'
+      }}>
+        {children}
+      </span>
+    );
+  }
+
   return (
     <span 
       style={{ 
         position: 'relative', 
         display: 'inline',
-        cursor: isTouchDevice ? 'default' : 'none',
+        cursor: 'none',
         textDecoration: 'underline',
         textDecorationColor: 'var(--accent-primary)',
         textUnderlineOffset: '4px'
       }}
-      onMouseEnter={() => { if (!isTouchDevice) setIsHovered(true); }}
-      onMouseLeave={() => { if (!isTouchDevice) setIsHovered(false); }}
-      onMouseMove={isTouchDevice ? undefined : handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onMouseMove={handleMouseMove}
     >
       {children}
 
@@ -56,7 +72,7 @@ export default function MediaTooltip({ children, mediaUrl, mediaType = 'image', 
               height: height,
               x: x,
               y: y,
-              translateX: '-50%', // centraliza a mídia no mouse
+              translateX: '-50%',
               translateY: '-50%',
               pointerEvents: 'none',
               zIndex: 99999,
@@ -78,8 +94,8 @@ export default function MediaTooltip({ children, mediaUrl, mediaType = 'image', 
             ) : (
               <img 
                 src={mediaUrl} 
-                alt="Tooltip preview" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                alt="Preview" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
               />
             )}
           </motion.div>
