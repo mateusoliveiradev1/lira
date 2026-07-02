@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ArrowUpRight, Plus } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { projects } from '../data/projects';
 import MagneticButton from '../components/MagneticButton';
 import TextReveal from '../components/TextReveal';
