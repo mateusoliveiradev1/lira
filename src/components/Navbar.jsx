@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 
@@ -6,6 +7,9 @@ export default function Navbar() {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === '/';
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
@@ -23,6 +27,30 @@ export default function Navbar() {
     }
   });
 
+  // Se estiver na Home, faz scroll suave. Se estiver em outra página, navega pra Home primeiro.
+  const handleAnchor = (e, anchor) => {
+    e.preventDefault();
+    if (isHome) {
+      const el = document.querySelector(anchor);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        if (window.__lenis) window.__lenis.scrollTo(el);
+      }
+    } else {
+      navigate('/' + anchor);
+    }
+  };
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (isHome) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (window.__lenis) window.__lenis.scrollTo(0);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <motion.header
       className={`navbar ${isScrolled ? 'scrolled' : ''}`}
@@ -36,14 +64,9 @@ export default function Navbar() {
       <div className="navbar-container">
         <MagneticButton>
           <a 
-            href="#" 
+            href="/" 
             className="navbar-logo"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              // Se o lenis estiver ativo, ele também tem um método scrollTo
-              if (window.__lenis) window.__lenis.scrollTo(0);
-            }}
+            onClick={handleLogoClick}
           >
             LIRA<span>.</span>
           </a>
@@ -51,13 +74,13 @@ export default function Navbar() {
         
         <nav className="navbar-links">
           <MagneticButton>
-            <a href="#projetos">Projetos</a>
+            <a href="/#projetos" onClick={(e) => handleAnchor(e, '#projetos')}>Projetos</a>
           </MagneticButton>
           <MagneticButton>
-            <a href="#processo">Processo</a>
+            <a href="/#processo" onClick={(e) => handleAnchor(e, '#processo')}>Processo</a>
           </MagneticButton>
           <MagneticButton>
-            <a href="#contato" className="navbar-cta">Iniciar Projeto</a>
+            <a href="/#contato" className="navbar-cta" onClick={(e) => handleAnchor(e, '#contato')}>Iniciar Projeto</a>
           </MagneticButton>
         </nav>
       </div>
