@@ -829,10 +829,14 @@ h1, h2, h3, h4, .h2-reveal {
 }
 
 @media (max-width: 768px) {
+  .footer-mega-text {
+    font-size: 30vw;
+  }
   .footer-mega-text-fill {
     -webkit-mask-image: none;
     mask-image: none;
-    color: rgba(215, 255, 0, 0.2); /* Cor fixa neon fraquinha pra não distrair muito */
+    color: var(--accent-primary);
+    opacity: 0.15;
   }
 }
 

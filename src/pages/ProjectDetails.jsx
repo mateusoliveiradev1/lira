@@ -6,7 +6,6 @@ import { projects } from '../data/projects';
 import { useEffect, useRef } from 'react';
 import PhoneMockup from '../components/PhoneMockup';
 import PushNotification from '../components/PushNotification';
-import CodeTooltip from '../components/CodeTooltip';
 import AnimatedCounter from '../components/AnimatedCounter';
 
 export default function ProjectDetails() {
@@ -93,16 +92,21 @@ export default function ProjectDetails() {
         </div>
       </section>
 
-      {/* Stack Tags com Tooltip */}
+      {/* Stack Tags */}
       <section className="project-stack-section container">
         <div className="project-stack-tags">
           {project.stack?.map((tech, idx) => (
-            <CodeTooltip 
-              key={idx} 
-              snippet={`// Tecnologia essencial\nimport { ${tech.replace(/\s+/g, '')} } from 'lira-stack';`}
+            <motion.span 
+              className="stack-tag" 
+              key={idx}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.05 }}
+              whileHover={{ scale: 1.05, borderColor: 'var(--accent-primary)' }}
             >
-              <span className="stack-tag">{tech}</span>
-            </CodeTooltip>
+              {tech}
+            </motion.span>
           ))}
         </div>
       </section>
@@ -179,17 +183,13 @@ export default function ProjectDetails() {
 
           {/* Componentes Complexos baseados no slug */}
           {project.slug === 'validade-zero' && (
-            <div style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: '3rem', alignItems: 'center', marginTop: '4rem' }}>
+            <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
               <AnimatedCounter 
                 startValue={999} 
                 endValue={0} 
                 duration={3} 
                 title="Produtos Vencidos" 
                 description="Zero perdas após implantação." 
-              />
-              <PhoneMockup 
-                videoUrl="https://res.cloudinary.com/dpv0ukw6y/video/upload/v1709292881/demo-vz_c7w4xk.mp4" 
-                imgUrl={project.img}
               />
             </div>
           )}
