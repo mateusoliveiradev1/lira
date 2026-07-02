@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound';
 import Lenis from '@studio-freight/lenis';
 import { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import Preloader from './components/Preloader';
@@ -50,9 +51,10 @@ function AnimatedRoutes() {
 
   return (
     <>
+      <Navbar />
       <AnimatePresence mode="wait">
         <PageTransition key={location.pathname}>
-          <Routes location={location}>
+          <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/projeto/:slug" element={<ProjectDetails />} />
             <Route path="/termos" element={<Terms />} />
