@@ -164,9 +164,9 @@ export default function Home() {
               SEU SITE ESTÁ <br/>
               <span className="text-accent">QUEIMANDO</span> DINHEIRO.
             </motion.h1>
-            <motion.p className="hero-subtitle" variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}>
+            <motion.div className="hero-subtitle" variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}>
               Chega de templates genéricos e tráfego perdido. Nós criamos <CodeTooltip snippet={'<LandingPage\n  conversion={99.9}\n  design="awwwards"\n  performance={100}\n/>'} language="jsx">Landing Pages</CodeTooltip> de ultra conversão com foco implacável em <MediaTooltip mediaUrl={projects[0].img} width={300} height={200}>lucro</MediaTooltip> e <MediaTooltip mediaUrl={projects[1]?.img || projects[0].img} width={350} height={200}>design de classe mundial</MediaTooltip>.
-            </motion.p>
+            </motion.div>
             <motion.div variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}>
               <MagneticButton>
                 <a href="#contato" className="btn btn-primary" aria-label="Agendar consultoria - Estancar o sangramento">
@@ -196,7 +196,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section process container">
+      <section id="processo" className="section process container">
         <div className="section-header">
           <TextReveal text={["COMO", "FUNCIONA"]} className="h2-reveal" />
         </div>
