@@ -4,35 +4,21 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import SEO from '../components/SEO';
 import { projects } from '../data/projects';
 import { useEffect, useRef } from 'react';
-import PhoneMockup from '../components/PhoneMockup';
-import PushNotification from '../components/PushNotification';
 import AnimatedCounter from '../components/AnimatedCounter';
-import CodeTooltip from '../components/CodeTooltip';
-
-const tagStyle = {
-  display: 'inline-flex',
-  alignItems: 'center',
-  padding: '0.4rem 1rem',
-  background: 'var(--bg-surface-raised)',
-  border: '1px solid var(--border-base)',
-  borderRadius: '999px',
-  fontSize: '0.875rem',
-  fontFamily: 'var(--font-sans)',
-  color: 'var(--fg-muted)',
-  letterSpacing: '0.02em',
-};
 
 export default function ProjectDetails() {
   const { slug } = useParams();
   const project = projects.find(p => p.slug === slug);
 
-  // Parallax Setup
-  const imgContainerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: imgContainerRef,
-    offset: ["start end", "end start"]
+  // Parallax Setup para o Hero
+  const heroRef = useRef(null);
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
   });
-  const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const titleY = useTransform(heroScroll, [0, 1], ["0%", "50%"]);
+  const imgScale = useTransform(heroScroll, [0, 1], [1, 1.15]);
+  const overlayOpacity = useTransform(heroScroll, [0, 1], [0, 0.9]);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -44,7 +30,7 @@ export default function ProjectDetails() {
   }
 
   return (
-    <div className="app-wrapper project-details">
+    <div className="app-wrapper project-details-page">
       <SEO 
         title={`Case ${project.name}`}
         description={`Confira o case completo de ${project.name}: ${project.challenge.substring(0, 100)}...`}
@@ -52,153 +38,123 @@ export default function ProjectDetails() {
         url={`https://liraconversao.com.br/projeto/${project.slug}`}
       />
       
-      <div className="container" style={{ paddingTop: '150px', paddingBottom: '100px' }}>
-        <Link to="/" className="btn" style={{ padding: '0.75rem 1.5rem', marginBottom: '4rem', background: 'var(--bg-surface)', color: 'var(--fg-base)' }}>
-          <ArrowLeft size={20} style={{ marginRight: '8px' }} /> VOLTAR
-        </Link>
-
+      {/* Hero Cinemático */}
+      <section className="project-hero" ref={heroRef}>
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          className="project-hero-bg"
+          style={{ scale: imgScale }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 'var(--space-4)', flexWrap: 'wrap', gap: '2rem' }}>
-            <div style={{ maxWidth: '100%' }}>
-              <span style={{ ...tagStyle, marginBottom: '1rem', display: 'inline-flex' }}>{project.category}</span>
-              <h1 className="project-title" style={{ margin: '0.5rem 0 1rem' }}>{project.name}</h1>
-            </div>
-            {project.url ? (
-              <a href={project.url} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ fontSize: '1.25rem' }}>
-                VER PROJETO AO VIVO <ArrowUpRight size={24} style={{ marginLeft: '12px' }} />
-              </a>
-            ) : (
-              <div className="btn" style={{ fontSize: '1.25rem', opacity: 0.5, cursor: 'not-allowed', background: 'var(--bg-surface)' }}>
-                EM DESENVOLVIMENTO
-              </div>
-            )}
-          </div>
-
-          {/* Stack Tags */}
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: 'var(--space-6)' }}>
-            {project.stack && project.stack.map((tech, i) => (
-              <span key={i} style={{ ...tagStyle, color: i === 0 ? 'var(--accent-primary)' : 'var(--fg-muted)', borderColor: i === 0 ? 'var(--accent-primary)' : 'var(--border-base)' }}>
-                <CodeTooltip 
-                  snippet={`{\n  "dependency": "${tech}",\n  "status": "active",\n  "performance": "blazing-fast"\n}`} 
-                  language="json"
-                >
-                  {tech}
-                </CodeTooltip>
-              </span>
-            ))}
-          </div>
-
-          {project.gallery ? (
-            <div style={{ marginBottom: 'var(--space-8)' }}>
-              {/* Imagem Web com Parallax */}
-              <div ref={imgContainerRef} style={{ width: '100%', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 'var(--space-4)' }}>
-                <motion.img 
-                  src={project.gallery[0]} 
-                  alt={`${project.name} Web Preview`} 
-                  loading="eager"
-                  decoding="async"
-                  style={{ width: '100%', height: 'auto', display: 'block', y: imgY, scale: 1.15 }} 
-                />
-              </div>
-              {/* Imagens Mobile lado a lado */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '3rem', padding: '1rem 0' }}>
-                {project.slug === 'validade-zero' ? (
-                  <>
-                    <PhoneMockup imageSrc={project.gallery[1]} alt={`${project.name} Mobile 1`} />
-                    <PhoneMockup imageSrc={project.gallery[2]} alt={`${project.name} Mobile 2`} />
-                  </>
-                ) : (
-                  <>
-                    <img 
-                      src={project.gallery[1]} 
-                      alt={`${project.name} Mobile 1`} 
-                      loading="lazy"
-                      style={{ maxWidth: '320px', width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
-                    />
-                    <img 
-                      src={project.gallery[2]} 
-                      alt={`${project.name} Mobile 2`} 
-                      loading="lazy"
-                      style={{ maxWidth: '320px', width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block', border: '1px solid var(--border-base)' }} 
-                    />
-                  </>
-                )}
-              </div>
-            </div>
-          ) : (
-            <div ref={imgContainerRef} style={{ width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 'var(--space-8)' }}>
-              <motion.img 
-                src={project.img} 
-                alt={`Demonstração visual do case ${project.name}`} 
-                loading="eager"
-                decoding="async"
-                style={{ width: '100%', height: 'auto', display: 'block', y: imgY, scale: 1.15 }} 
-              />
-            </div>
-          )}
-
-          <div className="project-details-grid" style={{ marginBottom: 'var(--space-8)' }}>
-            <div className="process-step" style={{ background: 'transparent', border: 'none', padding: 0 }}>
-              <h2 className="project-section-title">O Desafio</h2>
-              <p className="project-section-text">{project.challenge}</p>
-            </div>
-            <div className="process-step" style={{ background: 'transparent', border: 'none', padding: 0 }}>
-              <h2 className="project-section-title">A Solução</h2>
-              <p className="project-section-text">{project.solution}</p>
-            </div>
-          </div>
-          
-          {project.slug === 'validade-zero' && (
-            <div style={{ marginBottom: 'var(--space-8)' }}>
-              <AnimatedCounter 
-                startValue={100}
-                endValue={0} 
-                duration={3} 
-                title="Produtos Vencidos na Gôndola" 
-                description="O prejuízo e a dor de cabeça pararam de existir. Operação de risco zero."
-              />
-            </div>
-          )}
-          
-          {project.slug === 'validade-zero' && (
-            <PushNotification 
-              title="Alerta de Vencimento" 
-              message="Lote de Leite Integral vence em 3 dias. Verifique a Gôndola 4." 
-              delay={3500} 
-              icon="🚨"
-            />
-          )}
+          <img src={project.img} alt={project.name} loading="eager" />
         </motion.div>
-      </div>
-
-      <section className="stats-ribbon container" style={{ borderTop: '1px solid var(--border-base)', paddingTop: 'var(--space-6)' }}>
-        <h2 className="project-results-title">RESULTADOS REAIS</h2>
-        <div style={{ display: 'flex', gap: 'var(--space-6)', width: '100%', flexWrap: 'wrap' }}>
-          {project.metrics.map((metric, idx) => (
-            <motion.div 
-              className="stat-item" 
-              key={idx}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-            >
-              <span className="stat-number project-stat-number">{metric.value}</span>
-              <span className="stat-label">{metric.label}</span>
-            </motion.div>
-          ))}
+        
+        <motion.div 
+          className="project-hero-overlay"
+          style={{ opacity: overlayOpacity }}
+        />
+        
+        <div className="project-hero-content container">
+          <Link to="/" className="project-back-btn" aria-label="Voltar para a home">
+            <ArrowLeft size={24} /> <span>VOLTAR</span>
+          </Link>
+          
+          <motion.h1 
+            className="project-title-mega"
+            style={{ y: titleY }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+          >
+            {project.name}
+          </motion.h1>
+          
+          <motion.div 
+            className="project-hero-meta"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            <div className="meta-item">
+              <span className="meta-label">ROLE</span>
+              <span className="meta-value">Design & Dev</span>
+            </div>
+            <div className="meta-item">
+              <span className="meta-label">CLIENTE</span>
+              <span className="meta-value">{project.name}</span>
+            </div>
+            <div className="meta-item">
+              <span className="meta-label">STACK</span>
+              <span className="meta-value">{project.tags?.slice(0, 2).join(' / ') || 'Custom'}</span>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="cta-section">
-        <div className="container">
-          <h2>QUER RESULTADOS <br/>COMO ESSE?</h2>
-          <a href="https://wa.me/5517997437433" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ fontSize: '1.5rem', padding: '1.5rem 3rem' }}>
-            AGENDAR CONSULTORIA
+      {/* Detalhes do Projeto */}
+      <section className="project-content-section container">
+        <div className="project-content-grid">
+          {/* Lado Esquerdo - Tópicos */}
+          <div className="project-text-column">
+            <motion.div 
+              className="content-block"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+            >
+              <h2>O Desafio</h2>
+              <p>{project.challenge}</p>
+            </motion.div>
+            
+            <motion.div 
+              className="content-block"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+            >
+              <h2>A Solução</h2>
+              <p>{project.solution}</p>
+            </motion.div>
+          </div>
+
+          {/* Lado Direito - Resultados / Métricas */}
+          <div className="project-stats-column">
+            <motion.div 
+              className="stats-block"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="stat-mega">
+                {project.results ? (project.results.match(/\d+%/)?.[0] || '100%') : '+150%'}
+              </div>
+              <p className="stat-desc">Aumento Direto em Conversão de Leads e Vendas.</p>
+            </motion.div>
+            
+            <motion.div 
+              className="stats-block"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="stat-mega">0</div>
+              <p className="stat-desc">Uso de Templates. Tudo desenvolvido do zero para máxima performance.</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Final */}
+      <section className="project-cta-section">
+        <div className="container" style={{ textAlign: 'center', padding: '10vh 0 15vh 0' }}>
+          <a 
+            href={project.url || '#'} 
+            target="_blank" 
+            rel="noreferrer" 
+            className={`btn btn-primary btn-large project-live-btn ${!project.url ? 'disabled' : ''}`}
+            style={{ display: 'inline-flex', alignItems: 'center' }}
+          >
+            {project.url ? 'ACESSAR PROJETO AO VIVO' : 'EM DESENVOLVIMENTO'}
+            {project.url && <ArrowUpRight size={24} style={{ marginLeft: '12px' }} />}
           </a>
         </div>
       </section>

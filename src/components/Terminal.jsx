@@ -87,19 +87,28 @@ export default function Terminal() {
 
     switch (command) {
       case 'help':
-        response = `Comandos disponíveis:\n  whoami    - Quem sou eu?\n  projects  - Lista meus projetos\n  contact   - Meios de contato\n  clear     - Limpa o terminal\n  exit      - Fecha o terminal\n  matrix    - Ativar protocolo Matrix`;
+        response = `Comandos disponíveis:\n  whoami    - Quem sou eu?\n  projects  - Lista meus projetos\n  stack     - Tech stack utilizada\n  contact   - Meios de contato\n  date      - Hora atual\n  ping      - Teste de latência\n  clear     - Limpa o terminal\n  exit      - Fecha o terminal\n\n  [REDACTED] - Comandos secretos ocultos.`;
         break;
       case 'whoami':
-        response = `Mateus Oliveira (Lira).\nDesenvolvedor Web Fullstack.\nCriando soluções digitais que convertem e encantam.`;
+        response = `Você é um visionário prestes a transformar seu tráfego em lucro real.\nEu sou Lira, o desenvolvedor que vai construir sua máquina de vendas.`;
+        break;
+      case 'stack':
+        response = `React, Framer Motion, Lenis, CSS puro e Brainpower.\nArquitetura construída para conversão extrema.`;
+        break;
+      case 'ping':
+        response = `pong (0.01ms).\nRápido o suficiente para roubar a atenção dos seus concorrentes.`;
+        break;
+      case 'date':
+        response = `${new Date().toLocaleString('pt-BR')}\nTempo é dinheiro. Pare de desperdiçá-lo com templates lentos.`;
         break;
       case 'projects':
-        response = `Projetos de destaque:\n1. Validade Zero (App Mobile)\n2. Lira Studio (Landing Page)\n3. Resenha Web (Portal Esportivo)\n\nNavegue pelo menu do site para ver todos.`;
+        response = `Projetos de destaque:\n1. Validade Zero (App Mobile)\n2. Lira Studio (Landing Page)\n3. Resenha Web (Portal Esportivo)\n\nNavegue pelo menu do site para ver detalhes.`;
         break;
       case 'contact':
         setHistory(prev => [...prev, 
           { type: 'input', text: `guest@lira-studio:~$ ${command}` },
           { type: 'output', text: 'Email: ola@liraconversao.com.br' },
-          { type: 'output', text: 'WhatsApp: +55 (seu numero aqui)' }
+          { type: 'output', text: 'WhatsApp: +55 17 99743-7433' }
         ]);
         return;
       case 'matrix':
@@ -110,16 +119,37 @@ export default function Terminal() {
         window.dispatchEvent(new Event('trigger-matrix'));
         setTimeout(() => setIsOpen(false), 1500);
         return;
+      case 'budget':
+        setHistory(prev => [...prev, { type: 'input', text: `guest@lira-studio:~$ ${command}` }]);
+        
+        // Simulação de invasão / geração de voucher
+        setTimeout(() => setHistory(prev => [...prev, { type: 'output', text: 'Acessando LIRA Mainframe...' }]), 500);
+        setTimeout(() => setHistory(prev => [...prev, { type: 'output', text: 'Bypass de segurança concluído.' }]), 1500);
+        setTimeout(() => setHistory(prev => [...prev, { type: 'output', text: 'Gerando voucher VIP criptografado...' }]), 2500);
+        setTimeout(() => {
+          setHistory(prev => [...prev, 
+            { type: 'output', text: '[SUCESSO] Cupom HACKER gerado.' },
+            { type: 'output', text: <a href="https://wa.me/5517997437433?text=Encontrei%20o%20cupom%20hacker%20no%20terminal%20e%20quero%20um%20projeto%20de%20elite." target="_blank" rel="noopener noreferrer" style={{color: 'var(--accent-primary)', textDecoration: 'underline'}}>Clique aqui para resgatar no WhatsApp</a> }
+          ]);
+        }, 3500);
+        return;
+      case 'sudo':
+        response = `[!] Nice try. Apenas o Lira possui acesso root à conversão.`;
+        break;
+      case 'sudo rm -rf /':
+      case 'rm -rf /':
+        response = `[!] Acesso negado. Tentativa de invasão bloqueada. Muito engraçadinho!`;
+        break;
+      case '42':
+      case 'answer':
+        response = `A resposta para a vida, o universo e tudo mais é: Conversão.`;
+        break;
       case 'clear':
         setHistory([]);
         return;
       case 'exit':
         setIsOpen(false);
         return;
-      case 'sudo rm -rf /':
-      case 'rm -rf /':
-        response = `[!] Acesso negado. Tentativa de invasão bloqueada. Muito engraçadinho!`;
-        break;
       default:
         response = `Comando não encontrado: ${command}. Digite "help" para ajuda.`;
     }
