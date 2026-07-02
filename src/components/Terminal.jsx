@@ -38,14 +38,14 @@ export default function Terminal() {
     }
   }, [history, isOpen]);
 
-  // Evitar scroll global do Lenis quando o mouse estiver sobre o terminal
-  const terminalRef = useRef(null);
+  // Bloquear scroll do fundo enquanto o terminal está aberto
   useEffect(() => {
-    const el = terminalRef.current;
-    if (!el) return;
-    const preventScroll = (e) => e.stopPropagation();
-    el.addEventListener('wheel', preventScroll, { passive: false });
-    return () => el.removeEventListener('wheel', preventScroll);
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
   const handleCommand = (cmd) => {
@@ -146,12 +146,13 @@ export default function Terminal() {
               backgroundColor: '#050505',
               border: '1px solid var(--border-base)',
               borderRadius: '8px',
-              zIndex: 9999,
+              zIndex: 999999, // Ficar até acima do cursor, se precisar
               display: 'flex',
               flexDirection: 'column',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
               overflow: 'hidden',
-              fontFamily: 'var(--font-mono)'
+              fontFamily: 'var(--font-mono)',
+              cursor: 'auto'
             }}
           >
             {/* Barra de título estilo MacOS / Janela */}
@@ -161,7 +162,8 @@ export default function Terminal() {
               justifyContent: 'space-between',
               padding: '8px 12px',
               backgroundColor: '#1a1a1a',
-              borderBottom: '1px solid var(--border-base)'
+              borderBottom: '1px solid var(--border-base)',
+              cursor: 'default'
             }}>
               <div style={{ display: 'flex', gap: '6px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#FF5F56' }} />
@@ -209,7 +211,8 @@ export default function Terminal() {
                     color: '#fff',
                     outline: 'none',
                     fontFamily: 'inherit',
-                    fontSize: 'inherit'
+                    fontSize: 'inherit',
+                    cursor: 'text'
                   }}
                   autoComplete="off"
                   spellCheck="false"
