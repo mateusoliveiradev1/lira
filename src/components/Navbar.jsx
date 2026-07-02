@@ -36,11 +36,7 @@ export default function Navbar() {
 
   const handleAnchor = (e, sectionId) => {
     e.preventDefault();
-    if (isHome) {
-      scrollToSection(sectionId);
-    } else {
-      navigate('/#' + sectionId);
-    }
+    navigate('/#' + sectionId);
   };
 
   const handleLogoClick = (e) => {

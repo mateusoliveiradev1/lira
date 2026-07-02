@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function PhoneMockup({ imageSrc, alt }) {
+export default function PhoneMockup({ imageSrc, imgUrl, videoUrl, alt }) {
   return (
     <motion.div 
       className="phone-mockup"
@@ -42,15 +42,29 @@ export default function PhoneMockup({ imageSrc, alt }) {
           backgroundColor: '#000',
           width: '100%',
           height: '100%',
-          position: 'relative'
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
       >
-        <img 
-          src={imageSrc} 
-          alt={alt} 
-          loading="lazy" 
-          style={{ width: '100%', height: 'auto', display: 'block' }} 
-        />
+        {videoUrl ? (
+          <video 
+            src={videoUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        ) : (
+          <img 
+            src={imageSrc || imgUrl} 
+            alt={alt || "App Demo"} 
+            loading="lazy" 
+            style={{ width: '100%', height: 'auto', display: 'block' }} 
+          />
+        )}
       </div>
     </motion.div>
   );

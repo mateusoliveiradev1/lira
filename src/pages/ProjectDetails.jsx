@@ -147,19 +147,22 @@ export default function ProjectDetails() {
 
           {/* Lado Direito - Métricas Reais do Projeto */}
           <div className="project-stats-column">
-            {project.metrics?.map((m, idx) => (
-              <motion.div 
-                className="stats-block"
-                key={idx}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.15 }}
-              >
-                <div className="stat-mega">{m.value}</div>
-                <p className="stat-desc">{m.label}</p>
-              </motion.div>
-            ))}
+            {project.metrics?.map((m, idx) => {
+              const isNumeric = /^[\d\+\-%x]+$/.test(m.value.replace(/\s/g, ''));
+              return (
+                <motion.div 
+                  className="stats-block"
+                  key={idx}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.15 }}
+                >
+                  <div className={isNumeric ? "stat-mega" : "stat-text"}>{m.value}</div>
+                  <p className="stat-desc">{m.label}</p>
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* Componentes Complexos baseados no slug */}

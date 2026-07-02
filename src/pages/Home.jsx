@@ -77,25 +77,28 @@ function FAQItem({ faq, index }) {
 export default function Home() {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [isDesktop, setIsDesktop] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     setIsDesktop(!('ontouchstart' in window) && window.innerWidth > 1024);
-    
-    // Rolar para a seção correta se vier de outra página (ex: /#projetos)
-    if (window.location.hash) {
+  }, []);
+  
+  useEffect(() => {
+    // Rolar para a seção correta se vier de outra página (ex: /#projetos) ou se mudar na mesma página
+    if (location.hash) {
       setTimeout(() => {
-        const id = window.location.hash.replace('#', '');
+        const id = location.hash.replace('#', '');
         const el = document.getElementById(id);
         if (el) {
           if (window.__lenis) {
-            window.__lenis.scrollTo(el);
+            window.__lenis.scrollTo(el, { offset: -80 });
           } else {
             el.scrollIntoView({ behavior: 'smooth' });
           }
         }
-      }, 500); // tempo pro react renderizar tudo e o lenis estar pronto
+      }, 300); // tempo pro react renderizar tudo e o lenis estar pronto
     }
-  }, []);
+  }, [location.hash]);
   
   const imgX = useMotionValue(-1000);
   const imgY = useMotionValue(-1000);

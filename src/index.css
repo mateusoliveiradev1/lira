@@ -1214,6 +1214,15 @@ html.lenis { height: auto; }
   margin-bottom: 0.5rem;
 }
 
+.stat-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--fg-base);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
 .stat-desc {
   font-size: 1rem;
   color: var(--fg-muted);
