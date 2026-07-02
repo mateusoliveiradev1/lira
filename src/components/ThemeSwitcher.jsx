@@ -16,7 +16,7 @@ const themes = [
     bg: '#050A14', surface: '#0A1428', raised: '#0F1E3A'
   },
   { 
-    id: 'blood', name: 'Blood', color: '#FF3333', text: '#000000',
+    id: 'blood', name: 'Fire', color: '#FF3333', text: '#000000',
     bg: '#0A0505', surface: '#160A0A', raised: '#221010'
   }
 ];

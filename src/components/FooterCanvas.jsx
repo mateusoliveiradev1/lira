@@ -21,6 +21,24 @@ export default function FooterCanvas() {
 
     let mouse = { x: -1000, y: -1000 };
 
+    // Ler a cor do tema atual em cada frame
+    const getAccentColor = () => {
+      const raw = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim();
+      return raw || '#D4FF00';
+    };
+    const getBgColor = () => {
+      const raw = getComputedStyle(document.documentElement).getPropertyValue('--bg-base').trim();
+      return raw || '#06080A';
+    };
+
+    // Converter hex para rgba
+    const hexToRgba = (hex, alpha) => {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    };
+
     class Particle {
       constructor() {
         this.x = Math.random() * width;
@@ -58,8 +76,8 @@ export default function FooterCanvas() {
         if (this.y < 0) this.y = height;
         if (this.y > height) this.y = 0;
       }
-      draw() {
-        ctx.fillStyle = 'rgba(215, 255, 0, 0.4)'; // accent-primary
+      draw(color) {
+        ctx.fillStyle = color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.baseSize, 0, Math.PI * 2);
         ctx.fill();
@@ -85,12 +103,16 @@ export default function FooterCanvas() {
     document.addEventListener('mouseleave', handleMouseLeave);
 
     const render = () => {
-      ctx.fillStyle = '#050505'; // bg-base
+      const bgColor = getBgColor();
+      const accentColor = getAccentColor();
+      const particleColor = hexToRgba(accentColor, 0.4);
+
+      ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, width, height);
 
       particles.forEach(p => {
         p.update();
-        p.draw();
+        p.draw(particleColor);
       });
 
       animationFrameId = requestAnimationFrame(render);
