@@ -13,6 +13,8 @@ import WhatsAppButton from './components/WhatsAppButton';
 import Preloader from './components/Preloader';
 import PageTransition from './components/PageTransition';
 import ProgressBar from './components/ProgressBar';
+import ThemeSwitcher from './components/ThemeSwitcher';
+import Terminal from './components/Terminal';
 import useDynamicAttention from './utils/useDynamicAttention';
 
 function AnimatedRoutes() {
@@ -74,6 +76,8 @@ function App() {
   return (
     <HelmetProvider>
       <ProgressBar />
+      <ThemeSwitcher />
+      <Terminal />
       {!preloaderDone && <Preloader onComplete={() => setPreloaderDone(true)} />}
       <BrowserRouter>
         <AnimatedRoutes />
