@@ -5,12 +5,12 @@ import MagneticButton from './MagneticButton';
 import FooterCanvas from './FooterCanvas';
 
 export default function Footer() {
-  const footerRef = useRef(null);
+  const textRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 }); // Começa fora da tela
 
   const handleMouseMove = (e) => {
-    if (!footerRef.current) return;
-    const rect = footerRef.current.getBoundingClientRect();
+    if (!textRef.current) return;
+    const rect = textRef.current.getBoundingClientRect();
     setMousePos({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top
@@ -23,7 +23,6 @@ export default function Footer() {
 
   return (
     <footer 
-      ref={footerRef} 
       className="footer section" 
       style={{ 
         position: 'relative', 
@@ -77,7 +76,7 @@ export default function Footer() {
       </div>
       
       {/* Mega Typography at the bottom (Spotlight Fill) */}
-      <div className="footer-mega-text" aria-hidden="true" data-text="LIRA">
+      <div ref={textRef} className="footer-mega-text" aria-hidden="true" data-text="LIRA">
         <span className="footer-mega-text-outline">LIRA</span>
         <span className="footer-mega-text-fill">
           LIRA
