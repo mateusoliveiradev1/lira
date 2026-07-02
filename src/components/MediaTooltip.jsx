@@ -4,6 +4,11 @@ import { motion, AnimatePresence, useSpring } from 'framer-motion';
 export default function MediaTooltip({ children, mediaUrl, mediaType = 'image', width = 300, height = 200 }) {
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
   const x = useSpring(0, springConfig);
@@ -25,14 +30,14 @@ export default function MediaTooltip({ children, mediaUrl, mediaType = 'image', 
       style={{ 
         position: 'relative', 
         display: 'inline',
-        cursor: 'none', // Força o mouse a sumir (ou usar o custom)
+        cursor: isTouchDevice ? 'default' : 'none',
         textDecoration: 'underline',
         textDecorationColor: 'var(--accent-primary)',
         textUnderlineOffset: '4px'
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onMouseMove={handleMouseMove}
+      onMouseEnter={() => { if (!isTouchDevice) setIsHovered(true); }}
+      onMouseLeave={() => { if (!isTouchDevice) setIsHovered(false); }}
+      onMouseMove={isTouchDevice ? undefined : handleMouseMove}
     >
       {children}
 

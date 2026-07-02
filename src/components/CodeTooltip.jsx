@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CodeTooltip({ children, snippet, language = "jsx" }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   return (
     <span 
-      style={{ position: 'relative', display: 'inline-block', cursor: 'help' }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      style={{ position: 'relative', display: 'inline-block', cursor: isTouchDevice ? 'default' : 'help' }}
+      onMouseEnter={() => { if (!isTouchDevice) setIsHovered(true); }}
+      onMouseLeave={() => { if (!isTouchDevice) setIsHovered(false); }}
     >
       <span style={{ 
         borderBottom: '1px dashed var(--accent-primary)',
