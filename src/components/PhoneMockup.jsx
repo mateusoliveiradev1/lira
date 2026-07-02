@@ -55,14 +55,14 @@ export default function PhoneMockup({ imageSrc, imgUrl, videoUrl, alt }) {
             loop
             muted
             playsInline
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: 'auto', display: 'block', aspectRatio: '9/19.5', objectFit: 'cover' }}
           />
         ) : (
           <img 
             src={imageSrc || imgUrl} 
             alt={alt || "App Demo"} 
             loading="lazy" 
-            style={{ width: '100%', height: 'auto', display: 'block' }} 
+            style={{ width: '100%', height: 'auto', display: 'block', aspectRatio: '9/19.5', objectFit: 'cover' }} 
           />
         )}
       </div>

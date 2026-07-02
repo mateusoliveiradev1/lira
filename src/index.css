@@ -828,6 +828,14 @@ h1, h2, h3, h4, .h2-reveal {
   transition: mask-image 0.1s ease-out, -webkit-mask-image 0.1s ease-out;
 }
 
+@media (max-width: 768px) {
+  .footer-mega-text-fill {
+    -webkit-mask-image: none;
+    mask-image: none;
+    color: rgba(215, 255, 0, 0.2); /* Cor fixa neon fraquinha pra não distrair muito */
+  }
+}
+
 /* ===================== Floating Action Button ===================== */
 .whatsapp-float-btn {
   position: fixed;
@@ -1128,12 +1136,21 @@ html.lenis { height: auto; }
 .project-title-mega {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(3rem, 10vw, 8rem);
-  line-height: 1; /* Corrigido o esmagamento das letras */
+  font-size: clamp(2.5rem, 8vw, 8rem);
+  line-height: 1.1; /* Ajustado para letras não encavalarem no mobile */
   text-transform: uppercase;
   color: var(--fg-base);
   margin-bottom: 2rem;
   letter-spacing: -0.02em;
+  word-wrap: break-word; /* Evita que a palavra vaze a tela */
+}
+
+@media (max-width: 768px) {
+  .project-title-mega {
+    font-size: 3.5rem; /* Força um tamanho menor no celular para caber VALIDADE sem quebrar com hífen */
+    hyphens: none;
+    word-break: keep-all;
+  }
 }
 
 .project-hero-meta {
