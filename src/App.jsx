@@ -35,13 +35,16 @@ function AnimatedRoutes() {
       smooth: true,
     });
 
+    // Expor para outros componentes (ex: Terminal) poderem pausar
+    window.__lenis = lenis;
+
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
     
-    return () => lenis.destroy();
+    return () => { lenis.destroy(); window.__lenis = null; };
   }, [location.pathname]); // reinicia o lenis em mudança de rota
 
   return (

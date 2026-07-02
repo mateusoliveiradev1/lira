@@ -41,11 +41,18 @@ export default function Terminal() {
   // Bloquear scroll do fundo enquanto o terminal está aberto
   useEffect(() => {
     if (isOpen) {
+      // Parar o Lenis (scroll suave customizado)
+      if (window.__lenis) window.__lenis.stop();
+      // Parar scroll nativo também (mobile / fallback)
       document.body.style.overflow = 'hidden';
     } else {
+      if (window.__lenis) window.__lenis.start();
       document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      if (window.__lenis) window.__lenis.start();
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   const handleCommand = (cmd) => {
