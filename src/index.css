@@ -1175,6 +1175,14 @@ html.lenis { height: auto; }
   gap: 4rem;
 }
 
+@media (max-width: 768px) {
+  .project-content-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 0 1rem;
+  }
+}
+
 .project-text-column {
   display: flex;
   flex-direction: column;
@@ -1259,8 +1267,15 @@ html.lenis { height: auto; }
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+}
+
+.gallery-grid.mobile-app-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4rem;
 }
 
 .gallery-item {

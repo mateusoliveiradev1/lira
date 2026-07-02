@@ -6,6 +6,8 @@ import { projects } from '../data/projects';
 import { useEffect, useRef } from 'react';
 import PhoneMockup from '../components/PhoneMockup';
 import PushNotification from '../components/PushNotification';
+import CodeTooltip from '../components/CodeTooltip';
+import AnimatedCounter from '../components/AnimatedCounter';
 
 export default function ProjectDetails() {
   const { slug } = useParams();
@@ -91,29 +93,39 @@ export default function ProjectDetails() {
         </div>
       </section>
 
-      {/* Stack Tags */}
+      {/* Stack Tags com Tooltip */}
       <section className="project-stack-section container">
         <div className="project-stack-tags">
           {project.stack?.map((tech, idx) => (
-            <span className="stack-tag" key={idx}>{tech}</span>
+            <CodeTooltip 
+              key={idx} 
+              snippet={`// Tecnologia essencial\nimport { ${tech.replace(/\s+/g, '')} } from 'lira-stack';`}
+            >
+              <span className="stack-tag">{tech}</span>
+            </CodeTooltip>
           ))}
         </div>
       </section>
 
-      {/* Galeria — se tiver (Removendo a primeira se for igual a img de capa) */}
+      {/* Galeria */}
       {project.gallery && project.gallery.length > 1 && (
         <section className="project-gallery container">
-          <div className="gallery-grid">
+          <div className={`gallery-grid ${project.category === 'App Mobile' ? 'mobile-app-grid' : ''}`}>
             {project.gallery.filter(img => img !== project.img).map((img, idx) => (
               <motion.div 
-                className="gallery-item" 
+                className={project.category === 'App Mobile' ? '' : 'gallery-item'} 
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
+                style={project.category === 'App Mobile' ? { display: 'flex', justifyContent: 'center' } : {}}
               >
-                <img src={img} alt={`${project.name} screenshot ${idx + 1}`} loading="lazy" />
+                {project.category === 'App Mobile' ? (
+                  <PhoneMockup imageSrc={img} alt={`${project.name} screenshot ${idx + 1}`} />
+                ) : (
+                  <img src={img} alt={`${project.name} screenshot ${idx + 1}`} loading="lazy" />
+                )}
               </motion.div>
             ))}
           </div>
@@ -167,7 +179,14 @@ export default function ProjectDetails() {
 
           {/* Componentes Complexos baseados no slug */}
           {project.slug === 'validade-zero' && (
-            <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
+            <div style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: '3rem', alignItems: 'center', marginTop: '4rem' }}>
+              <AnimatedCounter 
+                startValue={999} 
+                endValue={0} 
+                duration={3} 
+                title="Produtos Vencidos" 
+                description="Zero perdas após implantação." 
+              />
               <PhoneMockup 
                 videoUrl="https://res.cloudinary.com/dpv0ukw6y/video/upload/v1709292881/demo-vz_c7w4xk.mp4" 
                 imgUrl={project.img}
