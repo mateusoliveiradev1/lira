@@ -18,7 +18,7 @@ export default function ProjectDetails() {
   });
   const titleY = useTransform(heroScroll, [0, 1], ["0%", "50%"]);
   const imgScale = useTransform(heroScroll, [0, 1], [1, 1.15]);
-  const overlayOpacity = useTransform(heroScroll, [0, 1], [0, 0.9]);
+
 
   // Scroll to top on mount
   useEffect(() => {
@@ -47,10 +47,7 @@ export default function ProjectDetails() {
           <img src={project.img} alt={project.name} loading="eager" />
         </motion.div>
         
-        <motion.div 
-          className="project-hero-overlay"
-          style={{ opacity: overlayOpacity }}
-        />
+        <div className="project-hero-overlay" />
         
         <div className="project-hero-content container">
           <Link to="/" className="project-back-btn" aria-label="Voltar para a home">
