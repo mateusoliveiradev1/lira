@@ -38,6 +38,16 @@ export default function Terminal() {
     }
   }, [history, isOpen]);
 
+  // Evitar scroll global do Lenis quando o mouse estiver sobre o terminal
+  const terminalRef = useRef(null);
+  useEffect(() => {
+    const el = terminalRef.current;
+    if (!el) return;
+    const preventScroll = (e) => e.stopPropagation();
+    el.addEventListener('wheel', preventScroll, { passive: false });
+    return () => el.removeEventListener('wheel', preventScroll);
+  }, [isOpen]);
+
   const handleCommand = (cmd) => {
     const command = cmd.trim().toLowerCase();
     
@@ -121,6 +131,7 @@ export default function Terminal() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={terminalRef}
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.95 }}
@@ -132,8 +143,7 @@ export default function Terminal() {
               width: '400px',
               maxWidth: 'calc(100vw - 48px)',
               height: '350px',
-              backgroundColor: 'rgba(10, 10, 10, 0.95)',
-              backdropFilter: 'blur(10px)',
+              backgroundColor: '#050505',
               border: '1px solid var(--border-base)',
               borderRadius: '8px',
               zIndex: 9999,
