@@ -80,6 +80,21 @@ export default function Home() {
 
   useEffect(() => {
     setIsDesktop(!('ontouchstart' in window) && window.innerWidth > 1024);
+    
+    // Rolar para a seção correta se vier de outra página (ex: /#projetos)
+    if (window.location.hash) {
+      setTimeout(() => {
+        const id = window.location.hash.replace('#', '');
+        const el = document.getElementById(id);
+        if (el) {
+          if (window.__lenis) {
+            window.__lenis.scrollTo(el);
+          } else {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 500); // tempo pro react renderizar tudo e o lenis estar pronto
+    }
   }, []);
   
   const imgX = useMotionValue(-1000);

@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import SEO from '../components/SEO';
 import { projects } from '../data/projects';
 import { useEffect, useRef } from 'react';
+import PhoneMockup from '../components/PhoneMockup';
+import PushNotification from '../components/PushNotification';
 
 export default function ProjectDetails() {
   const { slug } = useParams();
@@ -98,11 +100,11 @@ export default function ProjectDetails() {
         </div>
       </section>
 
-      {/* Galeria — se tiver */}
+      {/* Galeria — se tiver (Removendo a primeira se for igual a img de capa) */}
       {project.gallery && project.gallery.length > 1 && (
         <section className="project-gallery container">
           <div className="gallery-grid">
-            {project.gallery.map((img, idx) => (
+            {project.gallery.filter(img => img !== project.img).map((img, idx) => (
               <motion.div 
                 className="gallery-item" 
                 key={idx}
@@ -159,6 +161,25 @@ export default function ProjectDetails() {
               </motion.div>
             ))}
           </div>
+
+          {/* Componentes Complexos baseados no slug */}
+          {project.slug === 'validade-zero' && (
+            <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
+              <PhoneMockup 
+                videoUrl="https://res.cloudinary.com/dpv0ukw6y/video/upload/v1709292881/demo-vz_c7w4xk.mp4" 
+                imgUrl={project.img}
+              />
+            </div>
+          )}
+          {project.slug === 'resenha-web' && (
+            <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
+              <PushNotification 
+                title="Novo Artigo"
+                message="Flamengo vence de virada aos 45 do segundo tempo!"
+                time="Agora mesmo"
+              />
+            </div>
+          )}
         </div>
       </section>
 

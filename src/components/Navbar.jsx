@@ -39,9 +39,7 @@ export default function Navbar() {
     if (isHome) {
       scrollToSection(sectionId);
     } else {
-      // Navega pra home e depois rola pra seção
-      navigate('/');
-      setTimeout(() => scrollToSection(sectionId), 500);
+      navigate('/#' + sectionId);
     }
   };
 
