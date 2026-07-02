@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 
@@ -19,7 +19,6 @@ export default function Navbar() {
       setIsScrolled(false);
     }
     
-    // Esconder ao descer, mostrar ao subir
     if (latest > previous && latest > 150) {
       setHidden(true);
     } else {
@@ -27,17 +26,22 @@ export default function Navbar() {
     }
   });
 
-  // Se estiver na Home, faz scroll suave. Se estiver em outra página, navega pra Home primeiro.
-  const handleAnchor = (e, anchor) => {
+  const scrollToSection = (sectionId) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      if (window.__lenis) window.__lenis.scrollTo(el);
+    }
+  };
+
+  const handleAnchor = (e, sectionId) => {
     e.preventDefault();
     if (isHome) {
-      const el = document.querySelector(anchor);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-        if (window.__lenis) window.__lenis.scrollTo(el);
-      }
+      scrollToSection(sectionId);
     } else {
-      navigate('/' + anchor);
+      // Navega pra home e depois rola pra seção
+      navigate('/');
+      setTimeout(() => scrollToSection(sectionId), 500);
     }
   };
 
@@ -74,13 +78,13 @@ export default function Navbar() {
         
         <nav className="navbar-links">
           <MagneticButton>
-            <a href="/#projetos" onClick={(e) => handleAnchor(e, '#projetos')}>Projetos</a>
+            <a href="/#projetos" onClick={(e) => handleAnchor(e, 'projetos')}>Projetos</a>
           </MagneticButton>
           <MagneticButton>
-            <a href="/#processo" onClick={(e) => handleAnchor(e, '#processo')}>Processo</a>
+            <a href="/#processo" onClick={(e) => handleAnchor(e, 'processo')}>Processo</a>
           </MagneticButton>
           <MagneticButton>
-            <a href="/#contato" className="navbar-cta" onClick={(e) => handleAnchor(e, '#contato')}>Iniciar Projeto</a>
+            <a href="/#contato" className="navbar-cta" onClick={(e) => handleAnchor(e, 'contato')}>Iniciar Projeto</a>
           </MagneticButton>
         </nav>
       </div>

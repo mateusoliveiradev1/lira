@@ -1220,20 +1220,92 @@ html.lenis { height: auto; }
   line-height: 1.6;
 }
 
+/* ================== Gallery e Stack ================== */
+.project-stack-section {
+  padding: 4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.project-stack-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.stack-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-surface-raised);
+  border: 1px solid var(--border-base);
+  border-radius: 999px;
+  font-size: 1rem;
+  font-family: var(--font-mono);
+  color: var(--fg-base);
+}
+
+.project-gallery {
+  padding: 8rem 0;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.gallery-item {
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-base);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
 @media (max-width: 768px) {
   .project-hero {
-    height: 80svh;
+    height: auto;
+    min-height: 80svh;
   }
+  
+  .project-hero-content {
+    padding-top: 20vh; /* dar espaço pro navbar */
+  }
+
+  .project-title-mega {
+    font-size: clamp(3rem, 15vw, 5rem); /* Ajustado para não estourar tela */
+    word-break: break-word; /* Segurança extra contra overflow */
+    hyphens: auto;
+  }
+
   .project-hero-meta {
     gap: 2rem;
+    flex-direction: column; /* Em mobile, empilha as metas se faltar espaço */
   }
+
   .project-content-grid {
     grid-template-columns: 1fr;
   }
+  
   .stats-block {
     padding-left: 0;
     border-left: none;
     padding-top: 2rem;
     border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .gallery-grid {
+    grid-template-columns: 1fr;
   }
 }
