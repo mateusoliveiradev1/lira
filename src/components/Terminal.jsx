@@ -166,6 +166,8 @@ export default function Terminal() {
 
             {/* Área de conteúdo */}
             <div 
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
               style={{
                 flex: 1,
                 padding: '12px',

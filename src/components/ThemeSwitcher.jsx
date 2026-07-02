@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, X } from 'lucide-react';
 
@@ -12,20 +12,35 @@ const themes = [
 export default function ThemeSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTheme, setActiveTheme] = useState('neon');
+  const panelRef = useRef(null);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('lira-theme');
     if (savedTheme) {
       const theme = themes.find(t => t.id === savedTheme);
-      if (theme) applyTheme(theme);
+      if (theme) applyTheme(theme, false);
     }
   }, []);
 
-  const applyTheme = (theme) => {
+  // Fechar ao clicar fora
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (panelRef.current && !panelRef.current.contains(e.target) && !e.target.closest('.theme-switcher-btn')) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+
+  const applyTheme = (theme, closePanel = true) => {
     document.documentElement.style.setProperty('--accent-primary', theme.color);
     document.documentElement.style.setProperty('--accent-primary-text', theme.text);
     setActiveTheme(theme.id);
     localStorage.setItem('lira-theme', theme.id);
+    if (closePanel) setIsOpen(false);
   };
 
   return (
@@ -33,7 +48,7 @@ export default function ThemeSwitcher() {
       {/* Botão Flutuante */}
       <motion.button
         className="theme-switcher-btn"
-        onClick={() => setIsOpen(true)}
+        onClick={() => setIsOpen(!isOpen)}
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.1, rotate: 90 }}
@@ -64,6 +79,7 @@ export default function ThemeSwitcher() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={panelRef}
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
